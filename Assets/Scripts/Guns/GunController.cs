@@ -18,8 +18,7 @@ public class GunController : MonoBehaviour
         foreach (Gun gun in gunData)
         {
             Vector3 position = gunHolder.position + gunHolder.TransformDirection(gun.customPosition);
-            Quaternion rotation = Quaternion.Euler(gun.customRotation);
-            GameObject weapon = Instantiate(gun.gun, position, rotation, gunHolder);
+            GameObject weapon = Instantiate(gun.gun, position, Quaternion.identity, gunHolder);
             GunBehaviour gunBehaviour = weapon.AddComponent<GunBehaviour>();
             gunBehaviour.gunData = gun;
 

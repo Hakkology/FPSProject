@@ -32,13 +32,14 @@ public class GunBehaviour : MonoBehaviour
 
     private void Fire()
     {
-        Debug.Log($"{gunData.name} is fired. Remaining Ammo is {currentAmmo}.");
         currentAmmo--;
         lastFireTime = Time.time;
 
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, gunData.gunAttackDistance))
         {
+            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow, 1f); 
+
             var damageable = hit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
@@ -50,7 +51,14 @@ public class GunBehaviour : MonoBehaviour
                 HandlePiercingShot(hit);
             }
         }
+        else
+        {
+            // If the raycast didn't hit anything, draw the ray to the maximum attack distance
+            Debug.DrawRay(transform.position, transform.forward * gunData.gunAttackDistance, Color.red, 1f); 
+        }
+        Debug.Log($"{gunData.gunName} is fired. Remaining Ammo is {currentAmmo}.");
     }
+
 
     private void HandlePiercingShot(RaycastHit initialHit)
     {
