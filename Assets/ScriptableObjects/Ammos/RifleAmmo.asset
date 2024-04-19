@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ba244afe9ae5744284365422ebdf299, type: 3}
   m_Name: RifleAmmo
   m_EditorClassIdentifier: 
-  ammoName: 
-  maxAmmoCapacity: 0
-  clipSize: 0
-  reloadTime: 0
+  ammoName: Rifle
+  maxAmmoCapacity: 250
+  startingMaxAmmo: 90
+  clipSize: 45
+  reloadTime: 0.8
