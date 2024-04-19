@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RandomizeTransform : MonoBehaviour
+public class buildingBehaviour : MonoBehaviour
 {
     void Start()
     {
