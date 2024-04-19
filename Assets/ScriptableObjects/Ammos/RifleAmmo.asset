@@ -16,4 +16,5 @@ MonoBehaviour:
   maxAmmoCapacity: 250
   startingMaxAmmo: 90
   clipSize: 45
-  reloadTime: 0.8
+  reloadTime: 1.2
+  fireRate: 0.1

@@ -10,4 +10,9 @@ public class Gun : ScriptableObject
     public int gunAttackDamage;
     public int gunAttackDistance;
     public bool gunPierceShot;
+
+    // Just to make sure that the assets are instantiated at the right location.
+    // Origin positions are a bit off.
+    public Vector3 customRotation;
+    public Vector3 customPosition;
 }

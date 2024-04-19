@@ -18,3 +18,5 @@ MonoBehaviour:
   gunAttackDamage: 20
   gunAttackDistance: 100
   gunPierceShot: 0
+  customRotation: {x: 0, y: -90, z: 0}
+  customPosition: {x: -0.35, y: -0.35, z: 0}
