@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New AmmoType", menuName = "Inventory/AmmoType")]
 public class AmmoType : ScriptableObject
 {
+    public string ammoName;
     // For ammo spawn pools
     public GameObject ammoPrefab;
     public int poolSize = 3;
@@ -10,7 +11,6 @@ public class AmmoType : ScriptableObject
     public int pickupSize;
 
     // For ammo behaviour
-    public string ammoName;
     public int maxAmmoCapacity; 
     public int startingMaxAmmo;
     public int clipSize; 

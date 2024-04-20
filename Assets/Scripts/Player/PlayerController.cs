@@ -1,15 +1,11 @@
-using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-
-    [SerializeField] private float jumpHeight = 5.0f;
-    [SerializeField] private float walkSpeed = 5.0f;
-    [SerializeField] private float runSpeed = 8.0f;
-    [SerializeField] private float mouseSensitivity = 300f;
+    [SerializeField] private PlayerData playerData;
 
     private float gravity = -9.81f;
+    
     private float xRotation;
     private float speed;
     private CharacterController controller;
@@ -24,11 +20,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-
         isGrounded = controller.isGrounded;
         if (isGrounded && velocity.y < 0)
         {
-            velocity.y = -2f; 
+            velocity.y = -2f;
         }
 
         Move();
@@ -45,8 +40,8 @@ public class PlayerController : MonoBehaviour
 
     private void RotateView()
     {
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
+        float mouseX = Input.GetAxis("Mouse X") * playerData.mouseSensitivity * Time.deltaTime;
+        float mouseY = Input.GetAxis("Mouse Y") * playerData.mouseSensitivity * Time.deltaTime;
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
@@ -60,42 +55,10 @@ public class PlayerController : MonoBehaviour
         float xMovement = Input.GetAxis("Horizontal");
         float zMovement = Input.GetAxis("Vertical");
 
-
         Vector3 move = transform.right * xMovement + transform.forward * zMovement;
+        speed = Input.GetKey(KeyCode.LeftShift) ? playerData.runSpeed : playerData.walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
-        float movementSpeed = new Vector3(xMovement, 0, zMovement).magnitude;
-
-
-        if (movementSpeed == 0)
-        {
-            Idle(); 
-        }
-        else if (Input.GetKey(KeyCode.LeftShift))
-        {
-            Run(); 
-        }
-        else
-        {
-            Walk(); 
-        }
     }
 
-    private void Walk()
-    {
-        speed = walkSpeed;
-    }
-
-    private void Run()
-    {
-        speed = runSpeed;
-    }
-
-    private void Idle()
-    {
-        speed = 0;
-    }
-
-    private void Jump(){
-        velocity.y += Mathf.Sqrt(jumpHeight * -2f * gravity); 
-    }
+    private void Jump() => velocity.y += Mathf.Sqrt(playerData.jumpHeight * -2f * gravity);
 }

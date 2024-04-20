@@ -100,6 +100,7 @@ public class GunBehaviour : MonoBehaviour
         
         currentTotalAmmo += ammoToCollect;
         
+        Debug.Log($"{gunData.gunName} current total ammo was {currentTotalAmmo}.");
         Debug.Log($"{gunData.gunName} picked up {ammoToCollect} ammo. Current total ammo: {currentTotalAmmo}.");
         
         return ammoToCollect;
