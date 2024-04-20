@@ -93,8 +93,15 @@ public class GunBehaviour : MonoBehaviour
         Debug.Log($"{currentTotalAmmo} is the current total ammo.");
     }
 
-    public void AddAmmo(int amount)
+    public int AddAmmo(int amount)
     {
-        currentTotalAmmo = Mathf.Min(currentTotalAmmo + amount, gunData.ammoType.maxAmmoCapacity);
+        int ammoNeeded = gunData.ammoType.maxAmmoCapacity - currentTotalAmmo;
+        int ammoToCollect = Mathf.Min(ammoNeeded, amount);
+        
+        currentTotalAmmo += ammoToCollect;
+        
+        Debug.Log($"{gunData.gunName} picked up {ammoToCollect} ammo. Current total ammo: {currentTotalAmmo}.");
+        
+        return ammoToCollect;
     }
 }
