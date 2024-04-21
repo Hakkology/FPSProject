@@ -1,11 +1,14 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-public class HealthBar : MonoBehaviour
+public class HealthDisplay : MonoBehaviour
 {
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private TextMeshProUGUI healthText;
 
-
+    private Coroutine healthAnimationCoroutine;
     void Awake()
     {
         if (playerHealth == null)
@@ -30,7 +33,26 @@ public class HealthBar : MonoBehaviour
 
     private void UpdateHealthBar(int currentHealth, int maxHealth)
     {
+        healthText.text = $"{currentHealth} / {maxHealth}";
         healthSlider.maxValue = maxHealth;
-        healthSlider.value = currentHealth;
+        if (healthAnimationCoroutine != null)
+            StopCoroutine(healthAnimationCoroutine);
+        healthAnimationCoroutine = StartCoroutine(AnimateHealthChange(currentHealth));
+    }
+
+    private IEnumerator AnimateHealthChange(int targetHealth)
+    {
+        float preChangeHealth = healthSlider.value;
+        float elapsed = 0f;
+        float duration = 0.5f; 
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            healthSlider.value = Mathf.Lerp(preChangeHealth, targetHealth, elapsed / duration);
+            yield return null;
+        }
+
+        healthSlider.value = targetHealth; 
     }
 }

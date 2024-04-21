@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -6,25 +7,31 @@ public class GunBehaviour : MonoBehaviour
 {
     public Gun gunData;
 
-    private int currentAmmo;
-    private int currentTotalAmmo;
+    public delegate void AmmoChanged(int currentAmmo, int maxAmmo);
+    public event AmmoChanged onAmmoChanged;
+
+    public int CurrentAmmo { get; private set; }
+    public int CurrentTotalAmmo { get; private set; }
+    
     private float lastFireTime;
     private bool isReloading = false;
 
     private void Start()
     {
-        currentAmmo = gunData.ammoType.clipSize;
-        currentTotalAmmo = gunData.ammoType.startingMaxAmmo;
-        Debug.Log($"{currentTotalAmmo} is the current total ammo.");
+        CurrentAmmo = gunData.ammoType.clipSize;
+        CurrentTotalAmmo = gunData.ammoType.startingMaxAmmo;
+        Debug.Log($"{CurrentTotalAmmo} is the current total ammo.");
+        UpdateAmmoDisplay();
     }
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time > lastFireTime + gunData.ammoType.fireRate && currentAmmo > 0 && !isReloading)
+        if (Input.GetButton("Fire1") && Time.time > lastFireTime + gunData.ammoType.fireRate && CurrentAmmo > 0 && !isReloading)
         {
             Fire();
+            UpdateAmmoDisplay();
         }
-        if (currentAmmo == 0 && currentTotalAmmo > 0)
+        if (CurrentAmmo == 0 && CurrentTotalAmmo > 0)
         {
             StartCoroutine(Reload());
         }
@@ -32,7 +39,7 @@ public class GunBehaviour : MonoBehaviour
 
     private void Fire()
     {
-        currentAmmo--;
+        CurrentAmmo--;
         lastFireTime = Time.time;
 
         RaycastHit hit;
@@ -56,7 +63,7 @@ public class GunBehaviour : MonoBehaviour
             // If the raycast didn't hit anything, draw the ray to the maximum attack distance
             Debug.DrawRay(transform.position, transform.forward * gunData.gunAttackDistance, Color.red, 1f); 
         }
-        Debug.Log($"{gunData.gunName} is fired. Remaining Ammo is {currentAmmo}.");
+        Debug.Log($"{gunData.gunName} is fired. Remaining Ammo is {CurrentAmmo}.");
     }
 
 
@@ -78,31 +85,39 @@ public class GunBehaviour : MonoBehaviour
 
     private IEnumerator Reload()
     {
-        Debug.Log($"{gunData.name} is being reloaded. Current ammo is {currentAmmo}.");
+        Debug.Log($"{gunData.name} is being reloaded. Current ammo is {CurrentAmmo}.");
         isReloading = true;
         float reloadTime = gunData.ammoType.reloadTime;
         yield return new WaitForSeconds(reloadTime);
 
-        int neededAmmo = gunData.ammoType.clipSize - currentAmmo;
-        int ammoToAdd = Mathf.Min(neededAmmo, currentTotalAmmo);
-        currentAmmo += ammoToAdd;
-        currentTotalAmmo -= ammoToAdd;
+        int neededAmmo = gunData.ammoType.clipSize - CurrentAmmo;
+        int ammoToAdd = Mathf.Min(neededAmmo, CurrentTotalAmmo);
+        CurrentAmmo += ammoToAdd;
+        CurrentTotalAmmo -= ammoToAdd;
 
         isReloading = false;
-        Debug.Log($"{gunData.name} is reloaded. Current ammo is {currentAmmo}.");
-        Debug.Log($"{currentTotalAmmo} is the current total ammo.");
+        UpdateAmmoDisplay();
+
+        Debug.Log($"{gunData.name} is reloaded. Current ammo is {CurrentAmmo}.");
+        Debug.Log($"{CurrentTotalAmmo} is the current total ammo.");
     }
 
     public int AddAmmo(int amount)
     {
-        int ammoNeeded = gunData.ammoType.maxAmmoCapacity - currentTotalAmmo;
+        int ammoNeeded = gunData.ammoType.maxAmmoCapacity - CurrentTotalAmmo;
         int ammoToCollect = Mathf.Min(ammoNeeded, amount);
         
-        currentTotalAmmo += ammoToCollect;
+        CurrentTotalAmmo += ammoToCollect;
+        UpdateAmmoDisplay();
         
-        Debug.Log($"{gunData.gunName} current total ammo was {currentTotalAmmo}.");
-        Debug.Log($"{gunData.gunName} picked up {ammoToCollect} ammo. Current total ammo: {currentTotalAmmo}.");
+        Debug.Log($"{gunData.gunName} current total ammo was {CurrentTotalAmmo}.");
+        Debug.Log($"{gunData.gunName} picked up {ammoToCollect} ammo. Current total ammo: {CurrentTotalAmmo}.");
         
         return ammoToCollect;
+    }
+
+    private void UpdateAmmoDisplay()
+    {
+        onAmmoChanged?.Invoke(CurrentAmmo, CurrentTotalAmmo);
     }
 }

@@ -3,9 +3,13 @@ using UnityEngine;
 
 public class GunController : MonoBehaviour
 {
-    public List<Gun> gunData; 
-    public Transform gunHolder; 
-    private List<GameObject> weapons = new List<GameObject>(); 
+
+    public delegate void ActiveGunChanged(GunBehaviour newActiveGun);
+    public event ActiveGunChanged onActiveGunChanged;
+
+    public List<Gun> gunData;
+    public Transform gunHolder;
+    private List<GameObject> weapons = new List<GameObject>();
     private int currentWeaponIndex = 0;
 
     void Start()
@@ -22,11 +26,12 @@ public class GunController : MonoBehaviour
             GunBehaviour gunBehaviour = weapon.AddComponent<GunBehaviour>();
             gunBehaviour.gunData = gun;
 
-            weapon.SetActive(false); 
+            weapon.SetActive(false);
             weapons.Add(weapon);
         }
 
         weapons[currentWeaponIndex].SetActive(true);
+        UpdateAmmoDisplay();
     }
 
     void Update()
@@ -34,6 +39,7 @@ public class GunController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Q))
         {
             SwitchWeapon();
+            UpdateAmmoDisplay();
         }
     }
 
@@ -42,5 +48,9 @@ public class GunController : MonoBehaviour
         weapons[currentWeaponIndex].SetActive(false);
         currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
         weapons[currentWeaponIndex].SetActive(true);
+    }
+
+    public void UpdateAmmoDisplay(){
+        onActiveGunChanged?.Invoke(weapons[currentWeaponIndex].GetComponent<GunBehaviour>());
     }
 }
