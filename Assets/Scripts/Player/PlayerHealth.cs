@@ -2,18 +2,32 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private int maxHealth = 100;
+
+    public delegate void HealthChanged(int currentHealth, int maxHealth);
+    public event HealthChanged onHealthChanged;
+
+    public delegate void PlayerDied();
+    public event PlayerDied onPlayerDied;
+
+    [SerializeField] private PlayerData playerData;
+    private int maxHealth;
     private int currentHealth;
 
-    void Start()
+    void Awake()
     {
+        maxHealth = playerData.maxHealth;
         currentHealth = maxHealth;
+    }
+
+    void Start(){
+        UpdateHPDisplay();
     }
 
     public void TakeDamage(int amount)
     {
         currentHealth -= amount; 
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);  
+        UpdateHPDisplay();
 
         Debug.Log($"Player took {amount} damage. Current health: {currentHealth}");
 
@@ -26,6 +40,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     private void Die()
     {
         Debug.Log("Player has died.");
+        UpdatePlayerState();
         gameObject.SetActive(false);  
     }
 
@@ -35,7 +50,17 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         {
             currentHealth += amount;
             currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
+            UpdateHPDisplay();
+
             Debug.Log($"Player healed by {amount}. Current health: {currentHealth}");
         }
     }
+
+    public void UpdateHPDisplay(){
+        onHealthChanged?.Invoke(currentHealth, maxHealth);
+    }
+    public void UpdatePlayerState(){
+        onPlayerDied?.Invoke();
+    }
+    
 }
