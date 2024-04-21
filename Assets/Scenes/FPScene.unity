@@ -830,6 +830,7 @@ GameObject:
   m_Component:
   - component: {fileID: 381689214}
   - component: {fileID: 381689216}
+  - component: {fileID: 381689218}
   - component: {fileID: 381689215}
   - component: {fileID: 381689217}
   m_Layer: 0
@@ -907,6 +908,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: 94cade980f792f04d8c457916330537c, type: 2}
+--- !u!136 &381689218
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381689213}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!1 &492880724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,6 +1900,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1016853618}
+  - component: {fileID: 1016853619}
   m_Layer: 0
   m_Name: HealthPickupController
   m_TagString: Untagged
@@ -1898,6 +1923,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1406579049}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1016853619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016853617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e14f18791a2f6f34ca484531a555d603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obstructionLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  spawnCheckRadius: 1
+  maxSpawnAttempts: 10
+  planeSizeX: 250
+  planeSizeZ: 250
+  healthData: {fileID: 11400000, guid: 3cecd6965d8e4de42b0af6f0ad3e3894, type: 2}
+  pickupSpawnTransform: {fileID: 1609324494}
 --- !u!1 &1071790257
 GameObject:
   m_ObjectHideFlags: 0

@@ -48,6 +48,10 @@ public class GunController : MonoBehaviour
         weapons[currentWeaponIndex].SetActive(false);
         currentWeaponIndex = (currentWeaponIndex + 1) % weapons.Count;
         weapons[currentWeaponIndex].SetActive(true);
+
+        // For hp testing
+        PlayerHealth health = GetComponentInParent<PlayerHealth>();
+        health.TakeDamage(10);
     }
 
     public void UpdateAmmoDisplay(){

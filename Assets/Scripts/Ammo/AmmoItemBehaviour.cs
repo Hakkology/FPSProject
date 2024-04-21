@@ -4,23 +4,6 @@ using TMPro;
 public class AmmoItemBehaviour : MonoBehaviour
 {
     public AmmoType ammoType;
-    public TMP_Text ammoDisplay;
-
-    private void Start()
-    {
-        InitializeAmmo();
-    }
-
-    private void OnEnable()
-    {
-        InitializeAmmo();
-    }
-
-    private void InitializeAmmo()
-    {
-        UpdateAmmoDisplay();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -33,7 +16,6 @@ public class AmmoItemBehaviour : MonoBehaviour
                 if (ammoType.pickupSize > ammoCollected)
                 {
                     ammoType.pickupSize -= ammoCollected;
-                    UpdateAmmoDisplay();
                 }
                 else
                 {
@@ -41,14 +23,6 @@ public class AmmoItemBehaviour : MonoBehaviour
                     ammoType.pickupSize = playerGunBehaviour.gunData.ammoType.pickupSize;
                 }
             }
-        }
-    }
-
-    private void UpdateAmmoDisplay()
-    {
-        if (ammoDisplay != null)
-        {
-            ammoDisplay.text = ammoType.pickupSize.ToString();
         }
     }
 }

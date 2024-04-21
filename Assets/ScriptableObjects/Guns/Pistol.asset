@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8f79a1ab8988c409ab522d3ce401f6, type: 3}
   m_Name: Pistol
   m_EditorClassIdentifier: 
+  gunName: Handgun
   gun: {fileID: 4043241439066821443, guid: 726cd21416e138640a4f2575ffe04009, type: 3}
   ammoType: {fileID: 11400000, guid: 3dd9fad68f322854f97b6eeef8562b5b, type: 2}
-  gunName: Handgun
   gunAttackDamage: 20
   gunAttackDistance: 100
+  recoilDuration: 0.15
+  recoilValues: 0.1
   gunPierceShot: 0
   customPosition: {x: -0.35, y: -0.45, z: -0.1}

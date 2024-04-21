@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
+    private Camera mainCamera;
 
     private float gravity = -9.81f;
     
@@ -11,11 +13,14 @@ public class PlayerController : MonoBehaviour
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
+    private bool isZoomed = false;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        mainCamera = Camera.main; 
+        mainCamera.fieldOfView = playerData.normalFOV; 
     }
 
     void Update()
@@ -36,6 +41,18 @@ public class PlayerController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+        HandleZoom();
+    }
+
+    private void HandleZoom()
+    {
+        if (Input.GetMouseButtonDown(1)) 
+        {
+            isZoomed = !isZoomed; 
+        }
+
+        float targetFOV = isZoomed ? playerData.zoomedFOV : playerData.normalFOV;
+        mainCamera.fieldOfView = Mathf.Lerp(mainCamera.fieldOfView, targetFOV, Time.deltaTime * playerData.zoomSpeed);
     }
 
     private void RotateView()

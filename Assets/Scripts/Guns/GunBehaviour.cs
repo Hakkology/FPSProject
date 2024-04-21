@@ -64,8 +64,19 @@ public class GunBehaviour : MonoBehaviour
             Debug.DrawRay(transform.position, transform.forward * gunData.gunAttackDistance, Color.red, 1f); 
         }
         Debug.Log($"{gunData.gunName} is fired. Remaining Ammo is {CurrentAmmo}.");
+
+        ApplyRecoil();
+        
     }
 
+    private void ApplyRecoil()
+    {
+        // recoil dotween
+        transform.DOComplete(); 
+        transform.DOLocalMoveZ(-gunData.recoilValues, gunData.recoilDuration).SetRelative().SetEase(Ease.OutCubic).OnComplete(() => {
+            transform.DOLocalMoveZ(gunData.recoilValues, gunData.recoilDuration / 2).SetRelative().SetEase(Ease.InCubic);
+        });
+    }
 
     private void HandlePiercingShot(RaycastHit initialHit)
     {

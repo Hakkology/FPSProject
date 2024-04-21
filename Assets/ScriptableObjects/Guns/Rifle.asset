@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f8f79a1ab8988c409ab522d3ce401f6, type: 3}
   m_Name: Rifle
   m_EditorClassIdentifier: 
+  gunName: Railgun
   gun: {fileID: 131900, guid: 1d8e61deede12df46b37e582ad640c5c, type: 3}
   ammoType: {fileID: 11400000, guid: f6af8a3a4ad0a1148983ad1a13ddab55, type: 2}
-  gunName: Railgun
   gunAttackDamage: 12
   gunAttackDistance: 100
+  recoilDuration: 0.05
+  recoilValues: 0.15
   gunPierceShot: 0
-  customRotation: {x: 0, y: 0, z: 0}
   customPosition: {x: -0.5, y: -0.2, z: -0.65}

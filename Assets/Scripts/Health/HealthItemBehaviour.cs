@@ -1,21 +1,21 @@
 using UnityEngine;
-using TMPro;
 
 public class HealthItemBehaviour : MonoBehaviour
 {
     public HealthPickupData healthData;
+    public HealthPickupController healthController;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerHealth health = other.gameObject.GetComponent<PlayerHealth>();
-            if (health != null)
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
             {
-                int hpCollected = healthData.healAmount;
-                health.Heal(hpCollected);
-                gameObject.SetActive(false);  
+                playerHealth.Heal(healthData.healAmount);
+                gameObject.SetActive(false); 
+                healthController.StartRespawnCoroutine(gameObject); 
             }
         }
     }
-
 }

@@ -7,31 +7,28 @@ public class HealthPickupController : PickupController
     [SerializeField] private HealthPickupData healthData;
     [SerializeField] private Transform pickupSpawnTransform;
     private Queue<GameObject> hpQueue = new Queue<GameObject>();
-    private float nextSpawnTime;
 
     void Start()
     {
         InitializeHealthPool();
-        nextSpawnTime = Time.time + healthData.pickupRespawnTime;
         TrySpawn();
-    }
-
-    void Update()
-    {
-        if (Time.time >= nextSpawnTime)
-        {
-            TrySpawn();
-            nextSpawnTime = Time.time + healthData.pickupRespawnTime;
-        }
     }
 
     private void InitializeHealthPool()
     {
         for (int i = 0; i < healthData.poolSize; i++)
         {
-            Debug.Log($"{healthData.healthPickup} pool initialized");
             GameObject hp = Instantiate(healthData.healthPrefab, pickupSpawnTransform);
             hp.SetActive(false);
+            HealthItemBehaviour healthItemBehaviour = hp.GetComponent<HealthItemBehaviour>();
+            if (healthItemBehaviour != null)
+            {
+                healthItemBehaviour.healthController = this; 
+            }
+            else
+            {
+                Debug.LogError("HealthItemBehaviour component not found on the health pickup prefab.");
+            }
             hpQueue.Enqueue(hp);
         }
     }
@@ -40,19 +37,19 @@ public class HealthPickupController : PickupController
     {
         if (hpQueue.Count > 0)
         {
-            for (int i = 0; i < maxSpawnAttempts; i++)
+            Vector3 potentialPosition = GenerateRandomPosition();
+            if (!IsObstructed(potentialPosition))
             {
-                Vector3 potentialPosition = GenerateRandomPosition();
-                if (!IsObstructed(potentialPosition))
-                {
-                    GameObject hp = hpQueue.Dequeue();
-                    hp.transform.position = potentialPosition;
-                    hp.SetActive(true);
-                    StartCoroutine(Respawn(hp));
-                    break;
-                }
+                GameObject hp = hpQueue.Dequeue();
+                hp.transform.position = potentialPosition;
+                hp.SetActive(true);
             }
         }
+    }
+
+    public void StartRespawnCoroutine(GameObject hp)
+    {
+        StartCoroutine(Respawn(hp));
     }
 
     protected override IEnumerator Respawn(GameObject hp)
@@ -60,6 +57,6 @@ public class HealthPickupController : PickupController
         yield return new WaitForSeconds(healthData.pickupRespawnTime);
         hp.SetActive(false);
         hpQueue.Enqueue(hp);
+        TrySpawn();
     }
-
 }

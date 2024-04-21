@@ -6,8 +6,8 @@ public abstract class PickupController : MonoBehaviour
     public LayerMask obstructionLayer;
     public float spawnCheckRadius = 1.0f;
     public int maxSpawnAttempts = 10;
-    public float planeSizeX = 250f;
-    public float planeSizeZ = 250f;
+    public float planeSizeX = 200f;
+    public float planeSizeZ = 200f;
 
     protected abstract void TrySpawn();
     protected abstract IEnumerator Respawn(GameObject item);

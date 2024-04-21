@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ba244afe9ae5744284365422ebdf299, type: 3}
-  m_Name: PistolAmmo
+  m_Name: RifleAmmoItem
   m_EditorClassIdentifier: 
-  ammoName: Pistol
-  ammoPrefab: {fileID: 100000, guid: fdf643b7e57fb9f498ade64169c21613, type: 3}
+  ammoName: Rifle
+  ammoPrefab: {fileID: 100000, guid: e8c721df9dfa30a48bdb36f19c81b90f, type: 3}
   poolSize: 3
-  pickupRespawnTime: 45
-  pickupSize: 54
-  maxAmmoCapacity: 150
-  startingMaxAmmo: 36
-  clipSize: 18
-  reloadTime: 0.8
-  fireRate: 0.4
+  pickupRespawnTime: 60
+  pickupSize: 90
+  maxAmmoCapacity: 250
+  startingMaxAmmo: 90
+  clipSize: 45
+  reloadTime: 1.2
+  fireRate: 0.1

@@ -10,6 +10,10 @@ public class Gun : ScriptableObject
 
     public int gunAttackDamage;
     public int gunAttackDistance;
+
+    // recoil
+    public float recoilDuration;
+    public float recoilValues;
     public bool gunPierceShot;
 
     // Just to make sure that the assets are instantiated at the right location.

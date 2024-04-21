@@ -8,4 +8,7 @@ public class PlayerData : ScriptableObject
     public float runSpeed;
     public float mouseSensitivity;
     public int maxHealth;
+    public float normalFOV = 60f;
+    public float zoomedFOV = 30f;
+    public float zoomSpeed = 10f;
 }
