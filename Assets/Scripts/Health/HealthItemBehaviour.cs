@@ -3,7 +3,7 @@ using UnityEngine;
 public class HealthItemBehaviour : MonoBehaviour
 {
     public HealthPickupData healthData;
-    public HealthPickupController healthController;
+    public HealthItemController healthController;
 
     private void OnTriggerEnter(Collider other)
     {

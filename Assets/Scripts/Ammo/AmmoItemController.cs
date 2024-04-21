@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AmmoController : PickupController
+public class AmmoItemController : PickupController
 {
     [SerializeField] private AmmoType ammoType;
     [SerializeField] private Transform pickupSpawnTransform;
     private Queue<GameObject> ammoQueue = new Queue<GameObject>();
     private float nextSpawnTime;
+    private int activePickups = 0;
 
     void Start()
     {
@@ -18,7 +19,7 @@ public class AmmoController : PickupController
 
     void Update()
     {
-        if (Time.time >= nextSpawnTime)
+        if (activePickups < ammoType.poolSize && Time.time >= nextSpawnTime)
         {
             TrySpawn();
             nextSpawnTime = Time.time + ammoType.pickupRespawnTime;
@@ -45,11 +46,16 @@ public class AmmoController : PickupController
                 Vector3 potentialPosition = GenerateRandomPosition();
                 if (!IsObstructed(potentialPosition))
                 {
-                    GameObject ammo = ammoQueue.Dequeue();
+                    GameObject ammo = ammoQueue.Dequeue(); 
                     ammo.transform.position = potentialPosition;
                     ammo.SetActive(true);
-                    StartCoroutine(Respawn(ammo));
-                    break;
+                    activePickups++;
+                    AmmoItemBehaviour ammoBehaviour = ammo.GetComponent<AmmoItemBehaviour>();
+                    if (ammoBehaviour != null)
+                    {
+                        ammoBehaviour.ammoItemController = this;
+                    }
+                    break; 
                 }
             }
         }
@@ -60,6 +66,21 @@ public class AmmoController : PickupController
         yield return new WaitForSeconds(ammoType.pickupRespawnTime);
         ammo.SetActive(false);
         ammoQueue.Enqueue(ammo);
+        activePickups--;
+    }
+
+    public void DecreaseActivePickups()
+    {
+        if (activePickups > 0)
+            activePickups--;
+    }
+
+    public void EnqueueItem(GameObject item)
+    {
+        if (item != null)
+        {
+            ammoQueue.Enqueue(item);
+        }
     }
 
 }

@@ -359,8 +359,8 @@ MonoBehaviour:
     m_Bits: 64
   spawnCheckRadius: 1
   maxSpawnAttempts: 10
-  planeSizeX: 250
-  planeSizeZ: 250
+  planeSizeX: 200
+  planeSizeZ: 200
   ammoType: {fileID: 11400000, guid: 3dd9fad68f322854f97b6eeef8562b5b, type: 2}
   pickupSpawnTransform: {fileID: 197588445}
 --- !u!1 &195240449
@@ -698,8 +698,8 @@ MonoBehaviour:
     m_Bits: 64
   spawnCheckRadius: 1
   maxSpawnAttempts: 10
-  planeSizeX: 250
-  planeSizeZ: 250
+  planeSizeX: 200
+  planeSizeZ: 200
   ammoType: {fileID: 11400000, guid: f6af8a3a4ad0a1148983ad1a13ddab55, type: 2}
   pickupSpawnTransform: {fileID: 197588445}
 --- !u!1 &345832031
@@ -1940,8 +1940,8 @@ MonoBehaviour:
     m_Bits: 64
   spawnCheckRadius: 1
   maxSpawnAttempts: 10
-  planeSizeX: 250
-  planeSizeZ: 250
+  planeSizeX: 200
+  planeSizeZ: 200
   healthData: {fileID: 11400000, guid: 3cecd6965d8e4de42b0af6f0ad3e3894, type: 2}
   pickupSpawnTransform: {fileID: 1609324494}
 --- !u!1 &1071790257

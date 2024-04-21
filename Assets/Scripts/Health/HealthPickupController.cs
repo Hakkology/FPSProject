@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HealthPickupController : PickupController
+public class HealthItemController : PickupController
 {
     [SerializeField] private HealthPickupData healthData;
     [SerializeField] private Transform pickupSpawnTransform;

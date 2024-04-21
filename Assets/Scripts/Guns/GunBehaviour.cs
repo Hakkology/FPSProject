@@ -16,14 +16,6 @@ public class GunBehaviour : MonoBehaviour
     private float lastFireTime;
     private bool isReloading = false;
 
-    private void Start()
-    {
-        CurrentAmmo = gunData.ammoType.clipSize;
-        CurrentTotalAmmo = gunData.ammoType.startingMaxAmmo;
-        Debug.Log($"{CurrentTotalAmmo} is the current total ammo.");
-        UpdateAmmoDisplay();
-    }
-
     void Update()
     {
         if (Input.GetButton("Fire1") && Time.time > lastFireTime + gunData.ammoType.fireRate && CurrentAmmo > 0 && !isReloading)
@@ -32,6 +24,10 @@ public class GunBehaviour : MonoBehaviour
             UpdateAmmoDisplay();
         }
         if (CurrentAmmo == 0 && CurrentTotalAmmo > 0)
+        {
+            StartCoroutine(Reload());
+        }
+        if (Input.GetKeyDown(KeyCode.R) && CurrentAmmo < gunData.ammoType.clipSize && CurrentTotalAmmo > 0 && !isReloading)
         {
             StartCoroutine(Reload());
         }
@@ -127,7 +123,14 @@ public class GunBehaviour : MonoBehaviour
         return ammoToCollect;
     }
 
-    private void UpdateAmmoDisplay()
+    public void SetAmmo(int currentAmmo, int totalAmmo)
+    {
+        CurrentAmmo = currentAmmo;
+        CurrentTotalAmmo = totalAmmo;
+        UpdateAmmoDisplay();
+    }
+
+    public void UpdateAmmoDisplay()
     {
         onAmmoChanged?.Invoke(CurrentAmmo, CurrentTotalAmmo);
     }

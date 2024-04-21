@@ -1,26 +1,44 @@
 using UnityEngine;
-using TMPro;
 
 public class AmmoItemBehaviour : MonoBehaviour
 {
     public AmmoType ammoType;
+    public AmmoItemController ammoItemController;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GunBehaviour playerGunBehaviour = other.GetComponentInChildren<GunBehaviour>();
-            if (playerGunBehaviour != null && playerGunBehaviour.gunData.ammoType == ammoType)
+            GunController gunController = other.GetComponentInChildren<GunController>();
+            if (gunController != null)
             {
-                int ammoCollected = playerGunBehaviour.AddAmmo(ammoType.pickupSize);
-                
-                if (ammoType.pickupSize > ammoCollected)
+                GunBehaviour activeGunBehaviour = gunController.GetActiveGun();
+                if (activeGunBehaviour != null)
                 {
-                    ammoType.pickupSize -= ammoCollected;
+                    if (activeGunBehaviour.gunData.ammoType == ammoType)
+                    {
+                        int ammoCollected = activeGunBehaviour.AddAmmo(ammoType.pickupSize);
+                        gunController.UpdateAmmoDisplay();
+                    }
+                    else
+                    {
+                        int index = gunController.gunData.FindIndex(gun => gun.ammoType == ammoType);
+                        if (index != -1)
+                        {
+                            var ammoData = gunController.ammoStore[index];
+                            int ammoToAdd = Mathf.Min(ammoType.pickupSize, ammoType.maxAmmoCapacity - ammoData.totalAmmo);
+                            ammoData.totalAmmo += ammoToAdd;
+                            gunController.ammoStore[index] = ammoData;
+                            Debug.Log($"Updated ammo for {gunController.gunData[index].gunName}: {ammoData.totalAmmo}");
+                        }
+                    }
                 }
-                else
+                gunController.RefreshAmmoDisplayForAllGuns();
+
+                if (ammoItemController != null)
                 {
-                    gameObject.SetActive(false);
-                    ammoType.pickupSize = playerGunBehaviour.gunData.ammoType.pickupSize;
+                    ammoItemController.EnqueueItem(gameObject);  
+                    ammoItemController.DecreaseActivePickups();  
                 }
             }
         }
