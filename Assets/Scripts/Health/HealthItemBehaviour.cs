@@ -13,8 +13,11 @@ public class HealthItemBehaviour : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.Heal(healthData.healAmount);
-                gameObject.SetActive(false); 
-                healthController.StartRespawnCoroutine(gameObject); 
+                if (healthController != null)
+                {
+                    healthController.EnqueueItem(gameObject);
+                    healthController.DecreaseActivePickups();
+                }
             }
         }
     }

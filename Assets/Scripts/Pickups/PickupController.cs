@@ -10,7 +10,6 @@ public abstract class PickupController : MonoBehaviour
     public float planeSizeZ = 200f;
 
     protected abstract void TrySpawn();
-    protected abstract IEnumerator Respawn(GameObject item);
 
     protected Vector3 GenerateRandomPosition()
     {

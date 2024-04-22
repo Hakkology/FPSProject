@@ -61,13 +61,6 @@ public class AmmoItemController : PickupController
         }
     }
 
-    protected override IEnumerator Respawn(GameObject ammo)
-    {
-        yield return new WaitForSeconds(ammoType.pickupRespawnTime);
-        ammo.SetActive(false);
-        ammoQueue.Enqueue(ammo);
-        activePickups--;
-    }
 
     public void DecreaseActivePickups()
     {
