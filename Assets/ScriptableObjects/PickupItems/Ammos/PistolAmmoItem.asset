@@ -17,7 +17,7 @@ MonoBehaviour:
   poolSize: 3
   pickupRespawnTime: 20
   pickupSize: 54
-  maxAmmoCapacity: 150
+  maxAmmoCapacity: {fileID: 11400000, guid: 94809eb9cf314eb4296148ad338c321d, type: 2}
   startingMaxAmmo: 36
   clipSize: 18
   reloadTime: 0.8

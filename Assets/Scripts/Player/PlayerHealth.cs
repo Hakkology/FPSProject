@@ -1,3 +1,5 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour, IDamageable
@@ -15,7 +17,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        maxHealth = playerData.maxHealth;
+        maxHealth = (int)playerData.maxHealth.CurrentValue;
         currentHealth = maxHealth;
     }
 
@@ -61,6 +63,13 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     }
     public void UpdatePlayerState(){
         onPlayerDied?.Invoke();
+    }
+
+    public void UpdateMaxHealth()
+    {
+        maxHealth = (int)playerData.maxHealth.CurrentValue;
+        currentHealth = Mathf.Min(currentHealth, maxHealth);
+        UpdateHPDisplay();
     }
     
 }

@@ -1,8 +1,11 @@
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "New ScalableTalent", menuName = "Talent System/Scalable Talent")]
+[CreateAssetMenu(fileName = "New Scalable Talent", menuName = "Talent System/Scalable Talent")]
 public class ScalableTalent : ScriptableObject
 {
+    public event Action OnLevelChanged; 
+
     public string talentName;
     public int currentLevel;
     public int maxLevel;
@@ -21,6 +24,7 @@ public class ScalableTalent : ScriptableObject
     public void IncrementLevel() {
         if (currentLevel < maxLevel) {
             currentLevel++;
+            OnLevelChanged?.Invoke();  // Trigger the event when the level changes
         }
     }
 }

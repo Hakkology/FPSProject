@@ -15,9 +15,9 @@ MonoBehaviour:
   gunName: Handgun
   gun: {fileID: 4043241439066821443, guid: 726cd21416e138640a4f2575ffe04009, type: 3}
   ammoType: {fileID: 11400000, guid: 3dd9fad68f322854f97b6eeef8562b5b, type: 2}
-  gunAttackDamage: 20
+  gunAttackDamage: {fileID: 11400000, guid: e6e3d528b63ef2a4c846c4795c5049b8, type: 2}
   gunAttackDistance: 100
   recoilDuration: 0.15
   recoilValues: 0.1
-  gunPierceShot: 0
+  gunPierceShot: {fileID: 11400000, guid: f0d2371c869799e42bc193fe4f6a57ac, type: 2}
   customPosition: {x: -0.35, y: -0.45, z: -0.1}

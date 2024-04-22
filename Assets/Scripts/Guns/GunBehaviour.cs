@@ -46,7 +46,7 @@ public class GunBehaviour : MonoBehaviour
             var damageable = hit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage(gunData.gunAttackDamage);
+                damageable.TakeDamage((int)gunData.gunAttackDamage.CurrentValue);
             }
 
             if (gunData.gunPierceShot)
@@ -85,7 +85,7 @@ public class GunBehaviour : MonoBehaviour
             var damageable = hit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage(gunData.gunAttackDamage);
+                damageable.TakeDamage((int)gunData.gunAttackDamage.CurrentValue);
             }
         }
     }
@@ -111,7 +111,7 @@ public class GunBehaviour : MonoBehaviour
 
     public int AddAmmo(int amount)
     {
-        int ammoNeeded = gunData.ammoType.maxAmmoCapacity - CurrentTotalAmmo;
+        int ammoNeeded = (int)gunData.ammoType.maxAmmoCapacity.CurrentValue - CurrentTotalAmmo;
         int ammoToCollect = Mathf.Min(ammoNeeded, amount);
         
         CurrentTotalAmmo += ammoToCollect;

@@ -9,16 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bff4e4f2e0896d4a92c72983e24d2ad, type: 3}
-  m_Name: AmmoCapacityRifle
+  m_Script: {fileID: 11500000, guid: 05de237bdf175044e99bf35f57f4733a, type: 3}
+  m_Name: ExperienceLevels
   m_EditorClassIdentifier: 
-  talentName: Railgun Ammo Capacity
-  currentLevel: 1
-  maxLevel: 5
-  pointsPerLevel: 1
-  valuesAtEachLevel:
-  - 90
-  - 135
-  - 180
-  - 225
-  - 270
+  experienceThresholds: 5e0100002003000046050000d0070000be0a0000100e0000c6110000e01500005e1a0000401f0000

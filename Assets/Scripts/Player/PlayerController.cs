@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private float gravity = -9.81f;
     
     private float xRotation;
-    private float speed;
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
@@ -73,9 +72,9 @@ public class PlayerController : MonoBehaviour
         float zMovement = Input.GetAxis("Vertical");
 
         Vector3 move = transform.right * xMovement + transform.forward * zMovement;
-        speed = Input.GetKey(KeyCode.LeftShift) ? playerData.runSpeed : playerData.walkSpeed;
+        float speed = Input.GetKey(KeyCode.LeftShift) ? playerData.runSpeed * playerData.movementSpeedCoefficient.CurrentValue : playerData.walkSpeed * playerData.movementSpeedCoefficient.CurrentValue;
         controller.Move(move * speed * Time.deltaTime);
     }
 
-    private void Jump() => velocity.y += Mathf.Sqrt(playerData.jumpHeight * -2f * gravity);
+    private void Jump() => velocity.y += Mathf.Sqrt(playerData.jumpHeight.CurrentValue * -2f * gravity);
 }

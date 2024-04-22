@@ -26,7 +26,7 @@ public class AmmoItemBehaviour : MonoBehaviour
                         if (index != -1)
                         {
                             var ammoData = gunController.ammoStore[index];
-                            int ammoToAdd = Mathf.Min(ammoType.pickupSize, ammoType.maxAmmoCapacity - ammoData.totalAmmo);
+                            int ammoToAdd = Mathf.Min(ammoType.pickupSize, (int)ammoType.maxAmmoCapacity.CurrentValue - ammoData.totalAmmo);
                             ammoData.totalAmmo += ammoToAdd;
                             gunController.ammoStore[index] = ammoData;
                             Debug.Log($"Updated ammo for {gunController.gunData[index].gunName}: {ammoData.totalAmmo}");

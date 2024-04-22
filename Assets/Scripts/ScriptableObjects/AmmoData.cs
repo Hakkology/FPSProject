@@ -11,7 +11,7 @@ public class AmmoType : ScriptableObject
     public int pickupSize;
 
     // For ammo behaviour
-    public int maxAmmoCapacity; 
+    public ScalableTalent maxAmmoCapacity; 
     public int startingMaxAmmo;
     public int clipSize; 
     public float reloadTime; 

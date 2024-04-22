@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d46ecc66ca068ff4997458f4d2ff955b, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  jumpHeight: 5
+  maxHealth: {fileID: 11400000, guid: c0be467e7781c3645b344445a2f1c145, type: 2}
+  jumpHeight: {fileID: 11400000, guid: a45f7fab30eb5c547960798a06ab0fd7, type: 2}
+  movementSpeedCoefficient: {fileID: 11400000, guid: 51820fdab603fe542a85f3c5efd6a4f6, type: 2}
   walkSpeed: 5
-  runSpeed: 20
+  runSpeed: 8
   mouseSensitivity: 300
-  maxHealth: 100
   normalFOV: 60
   zoomedFOV: 30
   zoomSpeed: 10

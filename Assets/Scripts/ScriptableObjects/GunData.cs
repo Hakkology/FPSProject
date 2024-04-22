@@ -8,13 +8,13 @@ public class Gun : ScriptableObject
     public GameObject gun;
     public AmmoType ammoType;
 
-    public int gunAttackDamage;
+    public ScalableTalent gunAttackDamage;
     public int gunAttackDistance;
 
     // recoil
     public float recoilDuration;
     public float recoilValues;
-    public bool gunPierceShot;
+    public UnlockTalent gunPierceShot;
 
     // Just to make sure that the assets are instantiated at the right location.
     // Origin positions are a bit off.

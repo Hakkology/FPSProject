@@ -15,9 +15,9 @@ MonoBehaviour:
   gunName: Railgun
   gun: {fileID: 131900, guid: 1d8e61deede12df46b37e582ad640c5c, type: 3}
   ammoType: {fileID: 11400000, guid: f6af8a3a4ad0a1148983ad1a13ddab55, type: 2}
-  gunAttackDamage: 12
+  gunAttackDamage: {fileID: 11400000, guid: 14d2832bc93e492429fe5b2a3f3b4ecc, type: 2}
   gunAttackDistance: 100
   recoilDuration: 0.05
   recoilValues: 0.15
-  gunPierceShot: 0
+  gunPierceShot: {fileID: 11400000, guid: 96784bd85d7de0749af1d10b08f00669, type: 2}
   customPosition: {x: -0.5, y: -0.2, z: -0.65}

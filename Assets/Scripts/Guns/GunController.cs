@@ -31,7 +31,8 @@ public class GunController : MonoBehaviour
 
             weapon.SetActive(false);
             weapons.Add(weapon);
-            ammoStore.Add(weapons.Count - 1, (gun.ammoType.clipSize, gun.ammoType.startingMaxAmmo));
+             int initialClipSize = gun.ammoType.clipSize; 
+            ammoStore.Add(weapons.Count - 1, (initialClipSize, gun.ammoType.startingMaxAmmo));
 
             var ammoData = ammoStore[weapons.Count - 1];
             gunBehaviour.SetAmmo(ammoData.currentAmmo, ammoData.totalAmmo);

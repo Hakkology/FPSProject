@@ -3,9 +3,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New PlayerData", menuName = "Game Data/Player Data")]
 public class PlayerData : ScriptableObject
 {
-    public int maxHealth;
-
-    public float jumpHeight;
+    public ScalableTalent maxHealth;
+    public ScalableTalent jumpHeight;
+    public ScalableTalent movementSpeedCoefficient;
     public float walkSpeed;
     public float runSpeed;
     public float mouseSensitivity;
