@@ -35,7 +35,7 @@ public class DieState : IEnemyState
 
     public void Update()
     {
-
+        enemyAnimator.SetFloat("Speed", 0);
     }
 
     public void Cancel()

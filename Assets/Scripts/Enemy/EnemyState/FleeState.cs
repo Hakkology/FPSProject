@@ -37,8 +37,7 @@ public class FleeState : IEnemyState
 
     public void Init()
     {
-        enemyAgent.speed = enemyData.enemyRunSpeed;
-        enemyAnimator.SetFloat("Speed", 1, .1f, Time.deltaTime);
+        enemyAgent.speed = enemyData.enemyRunSpeed; 
         recoverTimer = 4.0f;
         isRecovering = false;
         Debug.Log($"{enemyData.enemyName} is entering FleeState");
@@ -46,6 +45,7 @@ public class FleeState : IEnemyState
 
     public void Update()
     {
+        enemyAnimator.SetFloat("Speed", 1, .1f, Time.deltaTime);
         HandleDeath();
 
         if (!isRecovering)

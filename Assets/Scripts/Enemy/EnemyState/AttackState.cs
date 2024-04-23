@@ -36,12 +36,13 @@ public class AttackState : IEnemyState
     {
         enemyAgent.isStopped = true;
         enemyAgent.speed = enemyData.enemyRunSpeed;
-        enemyAnimator.SetFloat("Speed", 0, .1f, Time.deltaTime);
+        
         Attack();
     }
 
     public void Update()
     {
+        enemyAnimator.SetFloat("Speed", 0, .1f, Time.deltaTime);
         HandleHealthTransition();
         HandleChaseTransition();
     }

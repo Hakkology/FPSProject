@@ -28,7 +28,6 @@ public class PatrolState : IEnemyState
     public void Init()
     {
         enemyAgent.speed = enemyData.enemyWalkSpeed;
-        enemyAnimator.SetFloat("Speed", 0.5f, .1f, Time.deltaTime);
         targetReached = false;
         SelectNewPatrolTarget();
         Debug.Log($"{enemyData.enemyName} is entering PatrolState");
@@ -36,6 +35,7 @@ public class PatrolState : IEnemyState
 
     public void Update()
     {
+        enemyAnimator.SetFloat("Speed", 0.5f, .1f, Time.deltaTime);
         HandleSight();
         HandlePatrol();
     }

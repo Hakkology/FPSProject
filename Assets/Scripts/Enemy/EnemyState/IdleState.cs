@@ -22,13 +22,13 @@ public class IdleState : IEnemyState
 
     public void Init()
     {
-        enemyAnimator.SetFloat("Speed", 0, .1f, Time.deltaTime);
         transitionTimer = Random.Range(3f, 5f);
         Debug.Log($"{enemyData.enemyName} is entering idle state.");
     }
 
     public void Update()
     {
+        enemyAnimator.SetFloat("Speed", 0, .1f, Time.deltaTime);
         HandleSight();
         HandleTransition();
     }

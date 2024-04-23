@@ -38,6 +38,7 @@ public class ChaseState : IEnemyState
 
     public void Update()
     {
+        enemyAnimator.SetFloat("Speed", 1.0f, .1f, Time.deltaTime);
         checkTimer -= Time.deltaTime;
         if (checkTimer <= 0)
         {
@@ -76,7 +77,6 @@ public class ChaseState : IEnemyState
                 enemyAgent.SetDestination(playerTransform.position);
                 lastPlayerPosition = playerTransform.position;
             }
-            enemyAnimator.SetFloat("Speed", 1.0f, .1f, Time.deltaTime);
         }
     }
 }
