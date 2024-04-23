@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyBehaviour : MonoBehaviour, IExperience
+public class EnemyBehaviour : MonoBehaviour
 {
     // References
     public EnemyData enemyStats;
@@ -23,7 +23,6 @@ public class EnemyBehaviour : MonoBehaviour, IExperience
         enemyHealth = GetComponent<EnemyHealth>();
         enemyProjectile = GetComponent<EnemyProjectile>();
         enemyCoroutineController = GetComponent<EnemyCoroutineController>();
-        playerHealth = playerTransform.gameObject.GetComponent<PlayerHealth>();
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {

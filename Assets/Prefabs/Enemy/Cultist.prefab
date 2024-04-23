@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: 9bd962d47c51c494b9860543ae307ebe, type: 2}
-  playerTransform: {fileID: 0}
 --- !u!114 &6663601464318114012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,6 +152,10 @@ PrefabInstance:
       propertyPath: m_Avatar
       value: 
       objectReference: {fileID: 9000000, guid: 6bf78fbe6a695e048af98ddc422b3013, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 3dfc28f5345c06b438587e52b76261c7, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 35d81c9d32e7141429d5a089ab11a6c6, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

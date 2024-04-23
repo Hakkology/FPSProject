@@ -1,4 +1,4 @@
 public interface IExperience
 {
-    void GiveExperience();
+    void GiveExperience(int xp);
 }

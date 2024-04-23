@@ -49,7 +49,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyStats: {fileID: 11400000, guid: d52641a541048484d8527e996b61f7e4, type: 2}
-  playerTransform: {fileID: 0}
 --- !u!114 &9178648477321419910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,6 +148,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Crawler
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 8b6619d5052eda24da2e3644045ba6df, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2125f3ab962d4f948b1d6d14d44532d1, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
