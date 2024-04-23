@@ -12,8 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bff4e4f2e0896d4a92c72983e24d2ad, type: 3}
   m_Name: GunDamagePistol
   m_EditorClassIdentifier: 
-  talentName: Handgun Damage
+  talentName: Damage
   currentLevel: 1
   maxLevel: 5
   pointsPerLevel: 1
-  valuesAtEachLevel: 0f00000011000000130000001500000018000000
+  valuesAtEachLevel:
+  - 15
+  - 16
+  - 17
+  - 18
+  - 20

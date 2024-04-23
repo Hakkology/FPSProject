@@ -24,7 +24,20 @@ public class ScalableTalent : ScriptableObject
     public void IncrementLevel() {
         if (currentLevel < maxLevel) {
             currentLevel++;
-            OnLevelChanged?.Invoke();  // Trigger the event when the level changes
+            Debug.Log($"Current Level for {name} is changed to {currentLevel}");
+            OnLevelChanged?.Invoke(); 
         }
+    }
+
+    public void DecrementLevel() {
+        if (currentLevel > 1) {
+            currentLevel--;
+            Debug.Log($"Current Level for {name} is changed to {currentLevel}");
+            OnLevelChanged?.Invoke(); 
+        }
+    }
+
+    public void ResetLevel(){
+        currentLevel = 1;
     }
 }

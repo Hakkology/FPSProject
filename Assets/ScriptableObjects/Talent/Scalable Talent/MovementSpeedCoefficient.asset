@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bff4e4f2e0896d4a92c72983e24d2ad, type: 3}
   m_Name: MovementSpeedCoefficient
   m_EditorClassIdentifier: 
-  talentName: Walk and Sprint Speed
+  talentName: Speed
   currentLevel: 1
   maxLevel: 5
   pointsPerLevel: 1

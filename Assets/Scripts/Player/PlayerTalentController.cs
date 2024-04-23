@@ -100,6 +100,13 @@ public class PlayerTalentController : MonoBehaviour
         
     }
 
+    public void RefundTalentPoints(int pointsRefunded)
+    {
+        TalentPoints += pointsRefunded;
+        OnTalentPointsChanged?.Invoke(); 
+        Debug.Log($"Talent points refunded. You now have {TalentPoints} talent points.");
+    }
+
     public void ResetForNewGame()
     {
         currentLevel = 1;

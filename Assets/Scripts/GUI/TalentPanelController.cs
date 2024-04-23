@@ -48,6 +48,9 @@ public class TalentPanelController : MonoBehaviour, IPanel
         panel.SetActive(true);
         Time.timeScale = 0;
 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         rectTransform.DOKill(); 
         rectTransform.DOAnchorPosX(0, 0.5f)
             .SetEase(Ease.OutExpo)
@@ -62,7 +65,9 @@ public class TalentPanelController : MonoBehaviour, IPanel
     public void ExitPanel()
     {
         Time.timeScale = 1;
-        Debug.Log("Exiting panel.");
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+        
         rectTransform.DOKill(true); 
         rectTransform.DOAnchorPosX(-rectTransform.rect.width, 0.5f)
             .SetEase(Ease.InExpo)

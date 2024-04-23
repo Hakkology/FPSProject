@@ -9,4 +9,9 @@ public class HealthTalentUpgrade : TalentUpgrade
         base.OnUpgradeSuccess();
         playerHealth.UpdateMaxHealth(); 
     }
+    protected override void OnDecreaseSuccess()
+    {
+        base.OnDecreaseSuccess();
+        playerHealth.UpdateMaxHealth(); 
+    }
 }
