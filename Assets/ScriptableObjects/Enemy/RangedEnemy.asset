@@ -22,8 +22,8 @@ MonoBehaviour:
   enemyRunSpeed: 6
   enemyAttackRange: 20
   enemyAttackCooldown: 2
-  enemyProjectilePrefab: {fileID: 0}
-  enemyProjectileSpeed: 0
+  enemyProjectilePrefab: {fileID: 947250871755532473, guid: 6f55fda69c93b4f48bea8baae7d55cb4, type: 3}
+  enemyProjectileSpeed: 150
   enemyFleeThreshold: 60
   enemyFleeDistance: 50
   attackType: 1

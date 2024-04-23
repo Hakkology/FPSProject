@@ -5,7 +5,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public EnemyData enemyData;
     private int maxHealth;
     private int currentHealth;
-    public int fleeThreshold;
 
     void Awake() 
     {
