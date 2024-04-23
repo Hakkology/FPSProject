@@ -82,6 +82,14 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         return maxHealth.ToString();
     }
 
+    public int GetCurrentMaxHealth(){
+        return (int)playerData.maxHealth.CurrentValue;
+    }
+
+    public int GetCurrentHealth(){
+        return currentHealth;
+    }
+
     public void ResetHealth()
     {
         UpdateMaxHealth();

@@ -9,26 +9,31 @@ public class PoolState : IEnemyState
     private EnemyController enemyController;
     private NavMeshAgent enemyAgent;
     private EnemyHealth enemyHealth;
+    private EnemyPooler enemyPool;
 
-    public PoolState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, EnemyHealth health)
+    public PoolState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, EnemyHealth health, EnemyPooler pool)
     {
         enemyController = controller;
         enemyData = data;
         enemyAnimator = animator;
         enemyAgent = agent;
         enemyHealth = health;
+        enemyPool = pool;
     }
 
     public void Init()
     {
-        enemyAnimator.Rebind();
-        enemyAnimator.Update(0f);
-        enemyHealth.ResetHealth();
-        enemyAgent.isStopped = true;
-        enemyAgent.ResetPath();
-        enemyAgent.enabled = false;
+        Debug.Log($"{enemyData.enemyName} is entering PoolState.");
 
-        Debug.Log($"{enemyData.enemyName} is entering PoolState");
+        if (enemyAgent != null && enemyAgent.gameObject != null) {
+            enemyAnimator.Rebind();
+            enemyAnimator.Update(0f);
+            enemyHealth.ResetHealth();
+            enemyAgent.ResetPath();
+            enemyAgent.enabled = false;
+
+            enemyPool.DespawnEnemy(enemyAgent.gameObject);
+        }
     }
 
     public void Update()
@@ -44,7 +49,6 @@ public class PoolState : IEnemyState
     public void Cancel()
     {
         enemyAgent.enabled = true;
-
         Debug.Log($"{enemyData.enemyName} is exiting PoolState");
     }
 }

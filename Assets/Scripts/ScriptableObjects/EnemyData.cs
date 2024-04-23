@@ -24,6 +24,7 @@ public class EnemyData : ScriptableObject
     public int enemyFleeThreshold;
     public int enemyFleeDistance;
     public AttackType attackType;
+    public EnemyPooler enemyPool;
     public int enemyPoolSize;
     public int enemySpawnCooldown;
 

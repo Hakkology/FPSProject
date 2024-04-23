@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class DieState : IEnemyState
 {
     private EnemyData enemyData;
+    private EnemyController enemyController;
     private Animator enemyAnimator;
     private NavMeshAgent enemyAgent;
     private EnemyCoroutineController enemyCoroutineController;
@@ -12,8 +13,9 @@ public class DieState : IEnemyState
 
     private float destructionTimer = 4.5f;
 
-    public DieState(EnemyData data, Animator animator, NavMeshAgent agent, EnemyCoroutineController coroutineController, EnemyPooler pooler)
+    public DieState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, EnemyCoroutineController coroutineController, EnemyPooler pooler)
     {
+        enemyController = controller;
         enemyData = data;
         enemyAnimator = animator;
         enemyAgent = agent;
@@ -33,7 +35,7 @@ public class DieState : IEnemyState
     private IEnumerator DespawnAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        enemyPooler.DespawnEnemy(enemyAgent.gameObject); 
+        enemyController.ChangeState(EnemyState.Pool);
     }
 
     public void Update()
@@ -43,6 +45,6 @@ public class DieState : IEnemyState
 
     public void Cancel()
     {
-        
+        enemyCoroutineController.StopAllCoroutines();
     }
 }

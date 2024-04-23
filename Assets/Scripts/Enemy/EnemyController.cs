@@ -29,13 +29,13 @@ public class EnemyController
     public EnemyController(EnemyData data, Animator animator, NavMeshAgent agent, EnemyProjectile projectile, Transform playerTransform, Transform transform, 
                             PlayerHealth playerHealth, EnemyHealth health, EnemyCoroutineController coroutineController, EnemyPooler pool)
     {
-        idleState = new IdleState(this, data, animator, transform, playerTransform);
+        idleState = new IdleState(this, data, animator, agent, transform, playerTransform);
         patrolState = new PatrolState(this, data, agent, animator, transform, playerTransform);
         chaseState = new ChaseState(this, data, agent, animator, transform, playerTransform, health);
         attackState = new AttackState(this, coroutineController, data, agent, animator, projectile, transform, playerTransform, health, playerHealth);
-        dieState = new DieState(data, animator, agent, coroutineController, pool);
+        dieState = new DieState(this, data, animator, agent, coroutineController, pool);
         fleeState = new FleeState(this, data, agent, animator, transform, playerTransform, health, coroutineController);
-        poolState = new PoolState(this, data, animator, agent, health);
+        poolState = new PoolState(this, data, animator, agent, health, pool);
 
         currentState = EnemyState.Idle;
         currentEnemyState = idleState;

@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,26 @@ public class EnemySliderBehaviour : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         enemyHealth.OnHealthChanged += UpdateHealthDisplay; 
         AssignCamera();
+    }
+
+    void OnEnable()
+    {
+        if (enemyHealth == null)
+        {
+            enemyHealth = GetComponent<EnemyHealth>();
+        }
+        if (enemyHealth != null)
+        {
+            enemyHealth.OnHealthChanged += UpdateHealthDisplay;
+        }
+    }
+
+    void OnDisable()
+    {
+        if (enemyHealth != null)
+        {
+            enemyHealth.OnHealthChanged -= UpdateHealthDisplay;
+        }
     }
 
     void Update()
@@ -50,15 +71,5 @@ public class EnemySliderBehaviour : MonoBehaviour
     private void UpdateHealthDisplay(int health)
     {
         hpSlider.value = (float)health / enemyHealth.enemyData.enemyHealth;
-    }
-
-    void OnDisable()
-    {
-        enemyHealth.OnHealthChanged -= UpdateHealthDisplay; 
-    }
-
-    void OnDestroy()
-    {
-        enemyHealth.OnHealthChanged -= UpdateHealthDisplay; 
     }
 }

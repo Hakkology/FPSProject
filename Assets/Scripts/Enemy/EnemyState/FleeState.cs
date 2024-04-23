@@ -38,8 +38,15 @@ public class FleeState : IEnemyState
     public void Init()
     {
         enemyAgent.speed = enemyData.enemyRunSpeed; 
+        enemyAgent.isStopped = false;
         recoverTimer = 4.0f;
         isRecovering = false;
+
+        if (recoveryCoroutine != null) {
+            enemyCoroutineController.StopCoroutine(recoveryCoroutine);
+            recoveryCoroutine = null;
+        }
+
         Debug.Log($"{enemyData.enemyName} is entering FleeState");
     }
 
@@ -87,6 +94,7 @@ public class FleeState : IEnemyState
 
         if (isRecovering) {
             enemyAnimator.SetBool("isCowering", false);
+            recoveryCoroutine = null;  
             enemyController.ChangeState(EnemyState.Chase);
         }
     }
@@ -96,7 +104,10 @@ public class FleeState : IEnemyState
         if (enemyHealth.CurrentHealth <= 0)
         {
             enemyAnimator.SetBool("isCowering", false);
-            enemyCoroutineController.StopCoroutine(recoveryCoroutine);
+            if (recoveryCoroutine != null) { 
+                enemyCoroutineController.StopCoroutine(recoveryCoroutine);
+                recoveryCoroutine = null;
+            }
             enemyController.ChangeState(EnemyState.Die);
         }
     }

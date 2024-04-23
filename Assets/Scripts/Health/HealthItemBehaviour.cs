@@ -10,7 +10,7 @@ public class HealthItemBehaviour : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if (playerHealth != null)
+            if (playerHealth != null && playerHealth.GetCurrentHealth() < playerHealth.GetCurrentMaxHealth())
             {
                 playerHealth.Heal(healthData.healAmount);
                 if (healthController != null)

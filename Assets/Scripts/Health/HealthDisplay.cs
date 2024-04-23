@@ -29,6 +29,7 @@ public class HealthDisplay : MonoBehaviour
     void OnDisable()
     {
         playerHealth.onHealthChanged -= UpdateHealthBar;
+        healthAnimationCoroutine = null;
     }
 
     private void UpdateHealthBar(int currentHealth, int maxHealth)

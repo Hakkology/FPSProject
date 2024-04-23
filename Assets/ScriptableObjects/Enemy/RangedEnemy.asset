@@ -27,3 +27,5 @@ MonoBehaviour:
   enemyFleeThreshold: 120
   enemyFleeDistance: 120
   attackType: 1
+  enemyPoolSize: 5
+  enemySpawnCooldown: 20

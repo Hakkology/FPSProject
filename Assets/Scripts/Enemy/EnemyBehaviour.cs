@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,12 +25,14 @@ public class EnemyBehaviour : MonoBehaviour
         enemyHealth = GetComponent<EnemyHealth>();
         enemyProjectile = GetComponent<EnemyProjectile>();
         enemyCoroutineController = GetComponent<EnemyCoroutineController>();
+
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
             playerTransform = player.transform;
             playerHealth = player.GetComponent<PlayerHealth>();
         }
+        enemyPool = GameObject.FindGameObjectWithTag($"{enemyStats.enemyName}").GetComponent<EnemyPooler>();
 
         enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, enemyProjectile, playerTransform, transform, playerHealth, enemyHealth, enemyCoroutineController, enemyPool);
     }

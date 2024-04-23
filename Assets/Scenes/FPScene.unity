@@ -3491,7 +3491,7 @@ GameObject:
   - component: {fileID: 749776116}
   m_Layer: 0
   m_Name: Cultist
-  m_TagString: Untagged
+  m_TagString: Cultist
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3806,7 +3806,7 @@ GameObject:
   - component: {fileID: 827972715}
   m_Layer: 0
   m_Name: Crawler
-  m_TagString: Untagged
+  m_TagString: Crawler
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

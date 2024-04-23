@@ -1,27 +1,31 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class IdleState : IEnemyState
 {
     private EnemyData enemyData;
     private Animator enemyAnimator;
     private EnemyController enemyController;
+    private NavMeshAgent enemyAgent;
     private Transform enemyTransform;
     private Transform playerTransform;
 
     private float transitionTimer;
     private float sightCheckInterval  = 0.4f; 
     private float sightCheckTimer  = 0f;
-    public IdleState(EnemyController controller, EnemyData data, Animator animator, Transform transform, Transform pTransform)
+    public IdleState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, Transform transform, Transform pTransform)
     {
         enemyController = controller;
         enemyData = data;
         enemyAnimator = animator;
         enemyTransform = transform;
+        enemyAgent = agent;
         playerTransform = pTransform;
     }
 
     public void Init()
     {
+        enemyAgent.enabled = true;
         transitionTimer = Random.Range(3f, 5f);
         Debug.Log($"{enemyData.enemyName} is entering idle state.");
     }
