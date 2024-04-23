@@ -10,6 +10,16 @@ public class UnlockTalent : ScriptableObject
     public void Unlock() {
         if (!isUnlocked) {
             isUnlocked = true;
+            Debug.Log($"{talentName} talent is unlocked.");
+            PlayerEventDetails.Instance.TriggerCharacterDetailsChanged();
+        }
+    }
+
+    public void Lock() {
+        if (isUnlocked) {
+            isUnlocked = false;
+            Debug.Log($"{talentName} talent is locked.");
+            PlayerEventDetails.Instance.TriggerCharacterDetailsChanged();
         }
     }
 }

@@ -77,4 +77,12 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Jump() => velocity.y += Mathf.Sqrt(playerData.jumpHeight.CurrentValue * -2f * gravity);
+
+    public string GetCurrentMovementSpeed(){
+        return $"{playerData.walkSpeed * playerData.movementSpeedCoefficient.CurrentValue} / {playerData.runSpeed * playerData.movementSpeedCoefficient.CurrentValue}";
+    }
+
+    public string GetCurrentJumpHeight(){
+        return playerData.jumpHeight.CurrentValue.ToString();
+    }
 }

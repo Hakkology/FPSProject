@@ -1,9 +1,10 @@
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerTalentController : MonoBehaviour
 {
+    public List<ScalableTalent> TalentReset = new List<ScalableTalent>();
     public static event Action OnTalentPointsChanged;
     public static event Action OnTalentLevelChanged;
     
@@ -27,7 +28,7 @@ public class PlayerTalentController : MonoBehaviour
     }
 
     [SerializeField] private ExperienceLevels experienceLevels;
-    private int currentLevel = 1;
+    public int currentLevel = 1;
     private int currentExperience = 0;
     private int talentPoints = 0;
     public int TalentPoints
@@ -53,6 +54,10 @@ public class PlayerTalentController : MonoBehaviour
         {
             _instance = this;
         }
+    }
+
+    void Start(){
+        ResetForNewGame();
     }
 
     void Update(){
@@ -112,6 +117,16 @@ public class PlayerTalentController : MonoBehaviour
         currentLevel = 1;
         currentExperience = 0;
         TalentPoints = 0;
+        foreach (var talent in TalentReset)
+        {
+            talent.ResetLevel();
+        }
         Debug.Log("Talent controller has been reset for a new game.");
+
+        var playerHealth = GetComponent<PlayerHealth>();
+        if (playerHealth != null)
+        {
+            playerHealth.ResetHealth();
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class HealthTalentUpgrade : TalentUpgrade
+public class HealthTalentUpgrade : ScalableTalentUpgrade
 {
     [SerializeField] private PlayerHealth playerHealth;
 

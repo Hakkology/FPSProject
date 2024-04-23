@@ -334,7 +334,7 @@ GameObject:
   - component: {fileID: 5871382667238617131}
   - component: {fileID: 6053077074907536179}
   m_Layer: 5
-  m_Name: Talent Panel
+  m_Name: Scalable Talent Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -4,7 +4,6 @@ using UnityEngine.SceneManagement;
 
 public class SceneHandler : MonoBehaviour
 {
-    public List<ScalableTalent> TalentReset = new List<ScalableTalent>();
     private static SceneHandler instance;
 
     public static SceneHandler Instance
@@ -46,7 +45,6 @@ public class SceneHandler : MonoBehaviour
 
     public void StartGame()
     {
-        ResetGame();
         SceneManager.LoadScene("FPScene");
     }
     public void ExitGame()
@@ -56,13 +54,5 @@ public class SceneHandler : MonoBehaviour
         #else
             Application.Quit(); 
         #endif
-    }
-
-    private void ResetGame()
-    {
-        foreach (var talent in TalentReset)
-        {
-            talent.ResetLevel();
-        }
     }
 }

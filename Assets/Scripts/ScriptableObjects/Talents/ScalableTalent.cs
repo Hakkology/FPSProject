@@ -39,5 +39,6 @@ public class ScalableTalent : ScriptableObject
 
     public void ResetLevel(){
         currentLevel = 1;
+        OnLevelChanged?.Invoke(); 
     }
 }

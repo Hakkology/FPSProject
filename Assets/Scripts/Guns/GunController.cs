@@ -98,4 +98,15 @@ public class GunController : MonoBehaviour
         int index = weapons.FindIndex(w => w.GetComponent<GunBehaviour>().gunData == gun);
         return ammoStore.TryGetValue(index, out var ammoData) ? ammoData : (gun.ammoType.clipSize, gun.ammoType.startingMaxAmmo);
     }
+
+    public string GetCurrentGunName()
+    {
+        GunBehaviour activeGun = GetActiveGun();
+        return activeGun != null ? activeGun.gunData.gunName : "No Active Weapon";
+    }
+
+    public string GetCurrentGunDamage() {
+        GunBehaviour activeGun = GetActiveGun();
+        return activeGun != null ? activeGun.GetCurrentDamage().ToString() : "Weapon Damage can't be found.";
+    }
 }

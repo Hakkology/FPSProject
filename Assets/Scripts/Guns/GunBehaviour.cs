@@ -15,6 +15,20 @@ public class GunBehaviour : MonoBehaviour
     
     private float lastFireTime;
     private bool isReloading = false;
+    private float currentWeaponDamage;
+
+    void Start() {
+        if (gunData != null && gunData.gunAttackDamage != null) {
+            gunData.gunAttackDamage.OnLevelChanged += UpdateWeaponDamage;
+            UpdateWeaponDamage(); 
+        }
+    }
+
+    void OnDestroy() {
+        if (gunData != null && gunData.gunAttackDamage != null) {
+            gunData.gunAttackDamage.OnLevelChanged -= UpdateWeaponDamage;
+        }
+    }
 
     void Update()
     {
@@ -46,7 +60,7 @@ public class GunBehaviour : MonoBehaviour
             var damageable = hit.collider.GetComponent<IDamageable>();
             if (damageable != null)
             {
-                damageable.TakeDamage((int)gunData.gunAttackDamage.CurrentValue);
+                damageable.TakeDamage((int)currentWeaponDamage);
             }
 
             if (gunData.gunPierceShot)
@@ -133,5 +147,14 @@ public class GunBehaviour : MonoBehaviour
     public void UpdateAmmoDisplay()
     {
         onAmmoChanged?.Invoke(CurrentAmmo, CurrentTotalAmmo);
+    }
+
+    private void UpdateWeaponDamage() {
+        currentWeaponDamage = gunData.gunAttackDamage.CurrentValue;
+        Debug.Log($"Updated gun damage for {gunData.gunName} to {currentWeaponDamage}");
+    }
+
+    public float GetCurrentDamage(){
+        return currentWeaponDamage;
     }
 }

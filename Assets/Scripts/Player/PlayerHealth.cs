@@ -17,12 +17,18 @@ public class PlayerHealth : MonoBehaviour, IDamageable
 
     void Awake()
     {
-        maxHealth = (int)playerData.maxHealth.CurrentValue;
-        currentHealth = maxHealth;
+        playerData.maxHealth.OnLevelChanged += UpdateMaxHealth;
     }
 
     void Start(){
+        UpdateMaxHealth();
+        currentHealth = maxHealth;
         UpdateHPDisplay();
+    }
+
+    void OnDestroy()
+    {
+        playerData.maxHealth.OnLevelChanged -= UpdateMaxHealth;
     }
 
     public void TakeDamage(int amount)
@@ -71,5 +77,15 @@ public class PlayerHealth : MonoBehaviour, IDamageable
         currentHealth = Mathf.Min(currentHealth, maxHealth);
         UpdateHPDisplay();
     }
-    
+
+    public string GetMaxHealth(){
+        return maxHealth.ToString();
+    }
+
+    public void ResetHealth()
+    {
+        UpdateMaxHealth();
+        currentHealth = maxHealth;
+        UpdateHPDisplay();
+    }
 }

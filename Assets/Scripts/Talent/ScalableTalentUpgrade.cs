@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TalentUpgrade : MonoBehaviour
+public class ScalableTalentUpgrade : MonoBehaviour
 {
     public ScalableTalent talent;
     public TextMeshProUGUI talentNameText;
@@ -10,31 +10,21 @@ public class TalentUpgrade : MonoBehaviour
     public Button incrementButton;
     public Button decrementButton;
 
-    protected virtual void Awake(){
-        PopulateUI();
-    }
-    protected virtual void Start()
-    {
-        UpdateUI();
-    }
-
+    protected virtual void Awake() => PopulateUI();
+    protected virtual void Start() => UpdateUI();
     protected virtual void OnEnable()
     {
         PlayerTalentController.OnTalentPointsChanged += UpdateInteractability;
         PlayerTalentController.OnTalentLevelChanged += UpdateInteractability;
         UpdateInteractability();
     }
-
     protected virtual void OnDisable()
     {
         PlayerTalentController.OnTalentPointsChanged -= UpdateInteractability;
         PlayerTalentController.OnTalentLevelChanged -= UpdateInteractability;
     }
 
-    protected void UpdateUI()
-    {
-        talentLevelText.text = $"{talent.currentLevel}";
-    }
+    protected void UpdateUI() => talentLevelText.text = $"{talent.currentLevel}";
 
     protected void PopulateUI(){
         talentNameText.text = talent.talentName;
@@ -77,13 +67,7 @@ public class TalentUpgrade : MonoBehaviour
         }
     }
 
-    protected virtual void OnUpgradeSuccess()
-    {
-        
-    }
-
-    protected virtual void OnDecreaseSuccess()
-    {
-        
-    }
+    protected virtual void OnUpgradeSuccess() => PlayerEventDetails.Instance.TriggerCharacterDetailsChanged();
+    protected virtual void OnDecreaseSuccess() => PlayerEventDetails.Instance.TriggerCharacterDetailsChanged();
+    
 }
