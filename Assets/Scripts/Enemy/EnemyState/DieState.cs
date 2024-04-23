@@ -24,7 +24,7 @@ public class DieState : IEnemyState
         Debug.Log($"{enemyData.enemyName} enemy is entering Death state.");
         enemyAgent.isStopped = true;
         enemyAgent.velocity = Vector3.zero;
-        enemyAnimator.SetTrigger("Die");
+        enemyAnimator.SetBool("Die", true);
         enemyCoroutineController.ExecuteCoroutine(DestroyAfterDelay(destructionTimer));
     }
     private IEnumerator DestroyAfterDelay(float delay)

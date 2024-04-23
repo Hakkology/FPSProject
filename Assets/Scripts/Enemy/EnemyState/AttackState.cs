@@ -49,7 +49,6 @@ public class AttackState : IEnemyState
     public void Cancel()
     {
         enemyCoroutineController.StopAllCoroutinesSafe();
-        enemyAnimator.ResetTrigger("Attack");
     }
 
     private void Attack()
@@ -63,7 +62,7 @@ public class AttackState : IEnemyState
         {
             if (Vector3.Distance(enemyTransform.position, playerTransform.position) <= enemyData.enemyAttackRange)
             {
-                enemyAnimator.SetTrigger("Attack");
+                enemyAnimator.SetBool("Attack", true);
                 if (enemyData.attackType == AttackType.Melee)
                 {
                     playerHealth.TakeDamage(enemyData.enemyAttackDamage);
@@ -76,6 +75,7 @@ public class AttackState : IEnemyState
                 }
             }
             yield return new WaitForSeconds(enemyData.enemyAttackCooldown); 
+            enemyAnimator.SetBool("Attack", false);
         }
     }
     private void LaunchProjectile()
