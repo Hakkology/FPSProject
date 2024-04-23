@@ -6,12 +6,16 @@ public class EnemyBehaviour : MonoBehaviour, IExperience
     // References
     public EnemyData enemyStats;
     public Transform playerTransform;
+
+    private PlayerHealth playerHealth;
     private EnemyController enemyController;
+    private EnemyCoroutineController enemyCoroutineController;
+    private EnemyProjectile enemyProjectile;
     private NavMeshAgent enemyAgent;
     private Animator enemyAnimator;
     private Rigidbody enemyRigidbody;
     private EnemyHealth enemyHealth;
-    private EnemyCoroutineController enemyCoroutineController;
+
 
     void Awake()
     {
@@ -19,9 +23,11 @@ public class EnemyBehaviour : MonoBehaviour, IExperience
         enemyAnimator = GetComponent<Animator>();
         enemyRigidbody = GetComponent<Rigidbody>();
         enemyHealth = GetComponent<EnemyHealth>();
+        enemyProjectile = GetComponent<EnemyProjectile>();
         enemyCoroutineController = GetComponent<EnemyCoroutineController>();
+        playerHealth = playerTransform.gameObject.GetComponent<PlayerHealth>();
 
-        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, playerTransform, transform, enemyHealth, enemyCoroutineController);
+        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, enemyProjectile, playerTransform, transform, playerHealth, enemyHealth, enemyCoroutineController);
     }
 
     void Update()

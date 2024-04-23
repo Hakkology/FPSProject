@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum AttackType
+{
+    Melee,
+    Ranged
+}
+
 [CreateAssetMenu(fileName = "New Enemy", menuName = "Character/Enemy")]
 public class EnemyData : ScriptableObject
 {
@@ -12,7 +18,11 @@ public class EnemyData : ScriptableObject
     public int enemyWalkSpeed;
     public int enemyRunSpeed;
     public int enemyAttackRange;
+    public float enemyAttackCooldown;
+    public GameObject enemyProjectilePrefab;
+    public int enemyProjectileSpeed;
     public int enemyFleeThreshold;
     public int enemyFleeDistance;
+    public AttackType attackType;
 
 }

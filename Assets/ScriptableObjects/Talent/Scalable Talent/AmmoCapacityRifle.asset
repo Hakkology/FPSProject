@@ -17,8 +17,8 @@ MonoBehaviour:
   maxLevel: 5
   pointsPerLevel: 1
   valuesAtEachLevel:
-  - 90
-  - 135
   - 180
-  - 225
+  - 210
+  - 240
   - 270
+  - 300
