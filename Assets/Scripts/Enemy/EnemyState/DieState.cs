@@ -8,15 +8,17 @@ public class DieState : IEnemyState
     private Animator enemyAnimator;
     private NavMeshAgent enemyAgent;
     private EnemyCoroutineController enemyCoroutineController;
+    private EnemyPooler enemyPooler;  
 
     private float destructionTimer = 4.5f;
 
-    public DieState(EnemyData data, Animator animator, NavMeshAgent agent, EnemyCoroutineController coroutineController)
+    public DieState(EnemyData data, Animator animator, NavMeshAgent agent, EnemyCoroutineController coroutineController, EnemyPooler pooler)
     {
         enemyData = data;
         enemyAnimator = animator;
         enemyAgent = agent;
         enemyCoroutineController = coroutineController;
+        enemyPooler = pooler;  
     }
 
     public void Init()
@@ -25,12 +27,13 @@ public class DieState : IEnemyState
         enemyAgent.isStopped = true;
         enemyAgent.velocity = Vector3.zero;
         enemyAnimator.SetBool("Die", true);
-        enemyCoroutineController.ExecuteCoroutine(DestroyAfterDelay(destructionTimer));
+        enemyCoroutineController.ExecuteCoroutine(DespawnAfterDelay(destructionTimer));
     }
-    private IEnumerator DestroyAfterDelay(float delay)
+    
+    private IEnumerator DespawnAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GameObject.Destroy(enemyAgent.gameObject);
+        enemyPooler.DespawnEnemy(enemyAgent.gameObject); 
     }
 
     public void Update()

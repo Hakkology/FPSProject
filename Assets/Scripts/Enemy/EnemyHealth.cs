@@ -26,6 +26,12 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IExperience
         }
     }
 
+    public void ResetHealth(){
+        maxHealth = enemyData.enemyHealth;
+        currentHealth = maxHealth;
+        OnHealthChanged?.Invoke(currentHealth);
+    }
+
     public void GiveExperience(int xp)
     {
         PlayerTalentController.Instance.GainExperience(xp);

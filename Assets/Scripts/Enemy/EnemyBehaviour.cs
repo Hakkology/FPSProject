@@ -5,7 +5,8 @@ public class EnemyBehaviour : MonoBehaviour
 {
     // References
     public EnemyData enemyStats;
-
+    public EnemyPooler enemyPool;
+    
     private Transform playerTransform;
     private PlayerHealth playerHealth;
     private EnemyController enemyController;
@@ -30,7 +31,7 @@ public class EnemyBehaviour : MonoBehaviour
             playerHealth = player.GetComponent<PlayerHealth>();
         }
 
-        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, enemyProjectile, playerTransform, transform, playerHealth, enemyHealth, enemyCoroutineController);
+        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, enemyProjectile, playerTransform, transform, playerHealth, enemyHealth, enemyCoroutineController, enemyPool);
     }
 
     void Update()
@@ -38,8 +39,4 @@ public class EnemyBehaviour : MonoBehaviour
         enemyController.Update();
     }
 
-    public void GiveExperience()
-    {
-        throw new System.NotImplementedException();
-    }
 }

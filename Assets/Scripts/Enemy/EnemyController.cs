@@ -8,7 +8,8 @@ public enum EnemyState
     Chase,
     Attack,
     Die,
-    Flee
+    Flee,
+    Pool
 }
 
 public class EnemyController
@@ -21,17 +22,20 @@ public class EnemyController
     private IEnemyState attackState;
     private IEnemyState dieState;
     private IEnemyState fleeState;
+    private IEnemyState poolState;
     
     private IEnemyState currentEnemyState;
 
-    public EnemyController(EnemyData data, Animator animator, NavMeshAgent agent, EnemyProjectile projectile, Transform playerTransform, Transform transform, PlayerHealth playerHealth, EnemyHealth health, EnemyCoroutineController coroutineController)
+    public EnemyController(EnemyData data, Animator animator, NavMeshAgent agent, EnemyProjectile projectile, Transform playerTransform, Transform transform, 
+                            PlayerHealth playerHealth, EnemyHealth health, EnemyCoroutineController coroutineController, EnemyPooler pool)
     {
         idleState = new IdleState(this, data, animator, transform, playerTransform);
         patrolState = new PatrolState(this, data, agent, animator, transform, playerTransform);
         chaseState = new ChaseState(this, data, agent, animator, transform, playerTransform, health);
         attackState = new AttackState(this, coroutineController, data, agent, animator, projectile, transform, playerTransform, health, playerHealth);
-        dieState = new DieState(data, animator, agent, coroutineController);
+        dieState = new DieState(data, animator, agent, coroutineController, pool);
         fleeState = new FleeState(this, data, agent, animator, transform, playerTransform, health, coroutineController);
+        poolState = new PoolState(this, data, animator, agent, health);
 
         currentState = EnemyState.Idle;
         currentEnemyState = idleState;
@@ -64,6 +68,9 @@ public class EnemyController
                 break;
             case EnemyState.Flee:
                 currentEnemyState = fleeState;
+                break;
+            case EnemyState.Pool:
+                currentEnemyState = poolState;
                 break;
         }
 
