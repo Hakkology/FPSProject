@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable, IExperience
@@ -5,6 +6,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IExperience
     public EnemyData enemyData;
     private int maxHealth;
     private int currentHealth;
+    public event Action<int> OnHealthChanged;
 
     void Awake() 
     {
@@ -15,6 +17,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IExperience
     public void TakeDamage(int amount)
     {
         currentHealth -= amount;
+        Debug.Log($"{enemyData.enemyName} took {amount} damage. Current Health is {currentHealth}");
+        OnHealthChanged?.Invoke(currentHealth);
         if (currentHealth <= 0)
         {
             currentHealth = 0;

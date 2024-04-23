@@ -49,34 +49,52 @@ public class GunBehaviour : MonoBehaviour
 
     private void Fire()
     {
-        CurrentAmmo--;
-        lastFireTime = Time.time;
+        // Check for remaining ammo
+        if (CurrentAmmo <= 0) return; // Exit if no ammo left
+        CurrentAmmo--; // Decrement ammo count
+        lastFireTime = Time.time; // Update time of last shot
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, gunData.gunAttackDistance))
+        // Set up the raycast starting point and direction
+        Vector3 rayStart = transform.position + transform.forward * 0.1f; // Start point just in front of the player to avoid self-collision
+        Debug.DrawRay(rayStart, transform.forward * gunData.gunAttackDistance, Color.red, 2f); // Visualize the raycast for debugging
+
+        // Use a sphere cast for a more forgiving hit detection
+        int enemyLayerMask = LayerMask.GetMask("Enemy"); // Get the layer mask for enemies
+        RaycastHit[] hits = Physics.SphereCastAll(rayStart, 0.5f, transform.forward, gunData.gunAttackDistance, enemyLayerMask);
+
+        // Log the raycast call
+        Debug.Log("Calling SphereCastAll with mask " + LayerMask.LayerToName(enemyLayerMask));
+
+        foreach (var hit in hits)
         {
-            Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.yellow, 1f); 
+            // Log each hit for debugging
+            Debug.Log($"Raycast hit: {hit.collider.gameObject.name}, Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
+            Debug.Log("Raycast start: " + rayStart + ", Direction: " + transform.forward);
 
-            var damageable = hit.collider.GetComponent<IDamageable>();
-            if (damageable != null)
+            // Attempt to get the EnemyHealth component on the hit object
+            EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+            if (enemyHealth != null)
             {
-                damageable.TakeDamage((int)currentWeaponDamage);
+                Debug.Log("EnemyHealth component found and not null");
+                enemyHealth.TakeDamage((int)currentWeaponDamage); // Apply damage
+                if (gunData.gunPierceShot.isUnlocked)
+                {
+                    HandlePiercingShot(hit); // Handle piercing shots if the feature is unlocked
+                }
+                break; // Stop at the first valid enemy hit if not piercing or continue based on your design
             }
-
-            if (gunData.gunPierceShot)
+            else
             {
-                HandlePiercingShot(hit);
+                Debug.Log("EnemyHealth component not found on hit object.");
             }
         }
-        else
-        {
-            // If the raycast didn't hit anything, draw the ray to the maximum attack distance
-            Debug.DrawRay(transform.position, transform.forward * gunData.gunAttackDistance, Color.red, 1f); 
-        }
+
         Debug.Log($"{gunData.gunName} is fired. Remaining Ammo is {CurrentAmmo}.");
 
-        ApplyRecoil();
-        
+        if (!isReloading)
+        {
+            ApplyRecoil(); // Apply recoil effects
+        }
     }
 
     private void ApplyRecoil()

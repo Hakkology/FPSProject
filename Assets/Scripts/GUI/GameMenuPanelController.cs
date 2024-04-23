@@ -45,13 +45,11 @@ public class GameMenuPanelController : MonoBehaviour, IPanel
         panel.SetActive(true);
         Time.timeScale = 0;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         rectTransform.DOKill();
         rectTransform.DOAnchorPosY(0, 0.5f)
             .SetEase(Ease.OutExpo)
             .SetUpdate(true); 
+            CursorDisplay.Instance.RegisterPanelOpen();
         
         isPanelOpen = true;
     }
@@ -68,6 +66,7 @@ public class GameMenuPanelController : MonoBehaviour, IPanel
             .OnComplete(() => {
                 panel.SetActive(false);
                 Time.timeScale = 1; 
+                CursorDisplay.Instance.RegisterPanelClose();
             });
         
         isPanelOpen = false;

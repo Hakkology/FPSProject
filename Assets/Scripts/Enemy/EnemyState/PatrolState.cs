@@ -29,6 +29,7 @@ public class PatrolState : IEnemyState
     {
         enemyAgent.speed = enemyData.enemyWalkSpeed;
         targetReached = false;
+        sightCheckTimer = sightCheckInterval;
         SelectNewPatrolTarget();
         Debug.Log($"{enemyData.enemyName} is entering PatrolState");
     }
@@ -95,6 +96,7 @@ public class PatrolState : IEnemyState
         if (sightCheckTimer <= 0)
         {
             Vector3 directionToPlayer = playerTransform.position - enemyTransform.position;
+            Debug.DrawRay(enemyTransform.position, directionToPlayer.normalized * enemyData.enemySightRange, Color.red);
             float distance = directionToPlayer.magnitude;
             
             if (distance < enemyData.enemySightRange)
@@ -102,6 +104,7 @@ public class PatrolState : IEnemyState
                 RaycastHit hit;
                 if (Physics.Raycast(enemyTransform.position, directionToPlayer.normalized, out hit, enemyData.enemySightRange))
                 {
+                    
                     if (hit.collider.gameObject.tag == "Player")
                     {
                         Debug.Log($"{enemyData.enemyName} has clear sight of the player and is initiating chase.");

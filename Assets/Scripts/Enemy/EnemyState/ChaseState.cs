@@ -30,6 +30,7 @@ public class ChaseState : IEnemyState
 
     public void Init()
     {
+        enemyAgent.isStopped = false;
         enemyAgent.speed = enemyData.enemyRunSpeed;
         lastPlayerPosition = playerTransform.position;
         enemyAgent.SetDestination(playerTransform.position);

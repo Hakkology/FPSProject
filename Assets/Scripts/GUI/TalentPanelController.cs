@@ -6,7 +6,7 @@ public class TalentPanelController : MonoBehaviour, IPanel
     public GameMenuPanelController gameMenuPanelController;
     public GameObject panel; 
     private RectTransform rectTransform;
-    private bool isPanelOpen = false;
+    private bool isPanelOpen;
 
     void Awake()
     {
@@ -33,6 +33,7 @@ public class TalentPanelController : MonoBehaviour, IPanel
     {
         panel.SetActive(false);
         rectTransform.anchoredPosition = new Vector2(-rectTransform.rect.width, 0);
+        isPanelOpen = false;
     }
 
     public void UpdatePanel()
@@ -41,6 +42,7 @@ public class TalentPanelController : MonoBehaviour, IPanel
             EnterPanel();
         else
             ExitPanel();
+        
     }
 
     public void EnterPanel()
@@ -48,14 +50,11 @@ public class TalentPanelController : MonoBehaviour, IPanel
         panel.SetActive(true);
         Time.timeScale = 0;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-
         rectTransform.DOKill(); 
         rectTransform.DOAnchorPosX(0, 0.5f)
             .SetEase(Ease.OutExpo)
             .SetUpdate(true);
-            
+            CursorDisplay.Instance.RegisterPanelOpen();
         
         isPanelOpen = true;
     }
@@ -65,8 +64,6 @@ public class TalentPanelController : MonoBehaviour, IPanel
     public void ExitPanel()
     {
         Time.timeScale = 1;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
         
         rectTransform.DOKill(true); 
         rectTransform.DOAnchorPosX(-rectTransform.rect.width, 0.5f)
@@ -76,6 +73,7 @@ public class TalentPanelController : MonoBehaviour, IPanel
                 Debug.Log("Panel moved off screen, now disabling.");
                 panel.SetActive(false);
                 Time.timeScale = 1; 
+                CursorDisplay.Instance.RegisterPanelClose();
             });
         
         isPanelOpen = false;

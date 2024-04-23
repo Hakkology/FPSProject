@@ -35,7 +35,6 @@ public class IdleState : IEnemyState
 
     public void Cancel()
     {
-        enemyAnimator.SetBool("IsIdle", false);
         Debug.Log($"{enemyData.enemyName} is exiting idle state.");
     }
 

@@ -16,14 +16,14 @@ MonoBehaviour:
   enemyHealth: 450
   enemyAttackDamage: 25
   enemyExperiencePoints: 150
-  enemySightRange: 30
-  enemyPatrolRange: 15
+  enemySightRange: 100
+  enemyPatrolRange: 60
   enemyWalkSpeed: 5
-  enemyRunSpeed: 10
+  enemyRunSpeed: 12
   enemyAttackRange: 1
   enemyAttackCooldown: 0.6
   enemyProjectilePrefab: {fileID: 0}
   enemyProjectileSpeed: 0
-  enemyFleeThreshold: 120
-  enemyFleeDistance: 30
+  enemyFleeThreshold: 180
+  enemyFleeDistance: 100
   attackType: 0
