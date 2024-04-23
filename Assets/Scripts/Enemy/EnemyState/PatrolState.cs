@@ -15,19 +15,20 @@ public class PatrolState : IEnemyState
     private float sightCheckInterval = 0.4f;
     private float sightCheckTimer = 0f;
 
-    public PatrolState(EnemyController controller, EnemyData data, NavMeshAgent agent, Animator animator, Transform transform, Transform playerTransform)
+    public PatrolState(EnemyController controller, EnemyData data, NavMeshAgent agent, Animator animator, Transform transform, Transform pTransform)
     {
         enemyController = controller;
         enemyData = data;
         enemyAgent = agent;
         enemyAnimator = animator;
         enemyTransform = transform;
-        this.playerTransform = playerTransform;
+        playerTransform = pTransform;
     }
 
     public void Init()
     {
         enemyAgent.speed = enemyData.enemyWalkSpeed;
+        enemyAnimator.SetFloat("Speed", 0.5f, .1f, Time.deltaTime);
         targetReached = false;
         SelectNewPatrolTarget();
         Debug.Log($"{enemyData.enemyName} is entering PatrolState");
@@ -49,7 +50,6 @@ public class PatrolState : IEnemyState
         {
             targetReached = true; 
             enemyAgent.isStopped = true; 
-            enemyAnimator.SetFloat("Speed", 0f, .1f, Time.deltaTime);
             enemyController.ChangeState(EnemyState.Idle);
         }
     }
@@ -81,6 +81,11 @@ public class PatrolState : IEnemyState
                 }
             }
             attemptCount++; 
+        }
+
+        if (attemptCount == 10)
+        {
+            enemyController.ChangeState(EnemyState.Idle);
         }
     }
 

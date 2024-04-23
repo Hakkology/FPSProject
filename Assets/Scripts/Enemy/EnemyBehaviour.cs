@@ -11,6 +11,7 @@ public class EnemyBehaviour : MonoBehaviour, IExperience
     private Animator enemyAnimator;
     private Rigidbody enemyRigidbody;
     private EnemyHealth enemyHealth;
+    private EnemyCoroutineController enemyCoroutineController;
 
     void Awake()
     {
@@ -18,8 +19,9 @@ public class EnemyBehaviour : MonoBehaviour, IExperience
         enemyAnimator = GetComponent<Animator>();
         enemyRigidbody = GetComponent<Rigidbody>();
         enemyHealth = GetComponent<EnemyHealth>();
+        enemyCoroutineController = GetComponent<EnemyCoroutineController>();
 
-        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, playerTransform, transform, enemyHealth);
+        enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, playerTransform, transform, enemyHealth, enemyCoroutineController);
     }
 
     void Update()

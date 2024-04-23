@@ -17,7 +17,7 @@ public class ChaseState : IEnemyState
     private float checkInterval = 0.1f; 
     private float checkTimer = 0f;
 
-    public ChaseState(EnemyController controller, EnemyData data, NavMeshAgent agent, Animator animator, Transform transform, Transform playerTransform, EnemyHealth health)
+    public ChaseState(EnemyController controller, EnemyData data, NavMeshAgent agent, Animator animator, Transform transform, Transform pTransform, EnemyHealth health)
     {
         enemyController = controller;
         enemyData = data;
@@ -25,7 +25,7 @@ public class ChaseState : IEnemyState
         enemyAnimator = animator;
         enemyTransform = transform;
         enemyHealth = health;
-        this.playerTransform = playerTransform;
+        playerTransform = pTransform;
     }
 
     public void Init()
@@ -56,7 +56,7 @@ public class ChaseState : IEnemyState
         {
             enemyController.ChangeState(EnemyState.Die);
         }
-        else if (enemyHealth.CurrentHealth <= enemyHealth.fleeThreshold)
+        else if (enemyHealth.CurrentHealth <= enemyData.enemyFleeThreshold)
         {
             enemyController.ChangeState(EnemyState.Flee);
         }

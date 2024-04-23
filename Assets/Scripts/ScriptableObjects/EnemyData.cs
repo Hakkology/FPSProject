@@ -12,6 +12,7 @@ public class EnemyData : ScriptableObject
     public int enemyWalkSpeed;
     public int enemyRunSpeed;
     public int enemyAttackRange;
-    public int enemyfleeThreshold;
+    public int enemyFleeThreshold;
+    public int enemyFleeDistance;
 
 }
