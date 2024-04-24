@@ -106,3 +106,4 @@ This repository tracks the development progress of a game project. Below is an o
 | Modular approach for guns and ammo, you can add stuff with Scriptable objects. | + | Done.                                      |
 | Escape gives game menu.                            | +         | Done.                                                 |
 | Basic building behaviour to change building heights.| +       | Done.
+| Sound Effects.                                     | +          | Done.

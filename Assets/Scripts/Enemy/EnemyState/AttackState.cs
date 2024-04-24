@@ -16,8 +16,6 @@ public class AttackState : IEnemyState
     private Transform enemyTransform;
     private Transform playerTransform;
 
-    private float checkTimer = 0f;
-
     public AttackState(EnemyController controller, EnemyCoroutineController coroutineController, EnemyData data, NavMeshAgent agent, Animator animator, EnemyProjectile projectile, Transform transform, Transform playerTransform, EnemyHealth health, PlayerHealth pHealth)
     {
         enemyController = controller;
