@@ -56,6 +56,15 @@ public class GunBehaviour : MonoBehaviour
 
         Vector3 rayStart = transform.position + transform.forward * 0.1f; 
         Debug.DrawRay(rayStart, transform.forward * gunData.gunAttackDistance, Color.red, 2f); 
+        
+        if (gunData.gunName == "Handgun")
+        {
+            SoundManager.Instance.PlaySFX("Handgun");
+        }
+        else
+        {
+            SoundManager.Instance.PlaySFX("Railgun");
+        }
 
         int enemyLayerMask = LayerMask.GetMask("Enemy"); 
         RaycastHit[] hits = Physics.SphereCastAll(rayStart, 0.5f, transform.forward, gunData.gunAttackDistance, enemyLayerMask);
