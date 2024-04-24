@@ -45,6 +45,7 @@ public class EndGamePanelController : MonoBehaviour, IPanel
 
     public void EnterPanel()
     {
+        killText.text = "You have killed " + PlayerTalentController.Instance.KillScore.ToString() + " enemies!";
         panel.SetActive(true);
         Time.timeScale = 0;
 
@@ -77,8 +78,7 @@ public class EndGamePanelController : MonoBehaviour, IPanel
 
     public void RestartGame()
     {
-        Time.timeScale = 1;
-        
+        Time.timeScale = 1; 
         rectTransform.DOKill(true); 
         rectTransform.DOAnchorPosX(rectTransform.rect.width, 0.5f)
             .SetEase(Ease.InExpo)
@@ -86,10 +86,8 @@ public class EndGamePanelController : MonoBehaviour, IPanel
             .OnComplete(() => {
                 Debug.Log("Panel moved off screen, now disabling.");
                 panel.SetActive(false);
-                Time.timeScale = 1; 
                 CursorDisplay.Instance.RegisterPanelClose();
             });
-        
         isPanelOpen = false;
         StartCoroutine(ExitingAnimation());
     }
