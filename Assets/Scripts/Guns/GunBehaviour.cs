@@ -59,11 +59,11 @@ public class GunBehaviour : MonoBehaviour
         
         if (gunData.gunName == "Handgun")
         {
-            SoundManager.Instance.PlaySFX("Handgun");
+            Managers.SoundManager.PlaySFX("Handgun");
         }
         else
         {
-            SoundManager.Instance.PlaySFX("Railgun");
+            Managers.SoundManager.PlaySFX("Railgun");
         }
 
         int enemyLayerMask = LayerMask.GetMask("Enemy"); 

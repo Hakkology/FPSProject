@@ -665,6 +665,7 @@ MonoBehaviour:
   sounds:
   - {fileID: 8300000, guid: 6ef3f66b9629e8b4188fd5c43ae44a60, type: 3}
   - {fileID: 8300000, guid: 61f645e8a8bc06e4a8c1598b4411b05e, type: 3}
+  - {fileID: 8300000, guid: f580fcdd6ac0f764abf0f9fd33f8fd54, type: 3}
   volume: 0.5
 --- !u!1 &864557088
 GameObject:
@@ -855,6 +856,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1344897831}
+  - component: {fileID: 1344897832}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -879,6 +881,20 @@ Transform:
   - {fileID: 755225675}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1344897832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1344897830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a75a04221e753b41a5da5297d180d38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundManager: {fileID: 755225676}
+  sceneHandler: {fileID: 864557090}
 --- !u!1 &1504934246
 GameObject:
   m_ObjectHideFlags: 0
