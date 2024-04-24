@@ -31,6 +31,5 @@ public class EnemyProjectile : MonoBehaviour
             damageable.TakeDamage(enemyData.enemyAttackDamage);
         }
         Debug.Log($"Projectile hit the target for {enemyData.enemyAttackDamage} damage.");
-        Destroy(gameObject);  
     }
 }

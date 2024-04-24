@@ -67,6 +67,8 @@ public class ChaseState : IEnemyState
     private void HandleChase()
     {
         float distance = Vector3.Distance(playerTransform.position, enemyTransform.position);
+        Debug.DrawLine(enemyTransform.position, playerTransform.position, Color.red);  
+
         if (distance <= enemyData.enemyAttackRange)
         {
             enemyController.ChangeState(EnemyState.Attack);
@@ -77,6 +79,7 @@ public class ChaseState : IEnemyState
             {
                 enemyAgent.SetDestination(playerTransform.position);
                 lastPlayerPosition = playerTransform.position;
+                Debug.Log("Updated destination to " + playerTransform.position); 
             }
         }
     }

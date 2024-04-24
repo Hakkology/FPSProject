@@ -31,7 +31,7 @@ public class DieState : IEnemyState
         enemyHealth.GiveExperience(enemyData.enemyExperiencePoints);
         enemyAgent.isStopped = true;
         enemyAgent.velocity = Vector3.zero;
-        enemyAnimator.SetBool("Die", true);
+        enemyAnimator.SetTrigger("Death");
         enemyCoroutineController.ExecuteCoroutine(DespawnAfterDelay(destructionTimer));
     }
     
@@ -48,6 +48,7 @@ public class DieState : IEnemyState
 
     public void Cancel()
     {
+        enemyAnimator.ResetTrigger("Death");
         enemyCoroutineController.StopAllCoroutines();
     }
 }

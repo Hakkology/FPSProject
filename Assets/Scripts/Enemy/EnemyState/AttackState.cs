@@ -47,6 +47,7 @@ public class AttackState : IEnemyState
     }
     public void Cancel()
     {
+        enemyAnimator.ResetTrigger("Attack");
         enemyCoroutineController.StopAllCoroutinesSafe();
     }
 
@@ -57,23 +58,18 @@ public class AttackState : IEnemyState
 
     private IEnumerator HandleAttack()
     {
-        while (Vector3.Distance(enemyTransform.position, playerTransform.position) <= enemyData.enemyAttackRange)
+        enemyAnimator.SetTrigger("Attack");
+        if (enemyData.attackType == AttackType.Melee)
         {
-            enemyAnimator.SetTrigger("Attack");
-            if (enemyData.attackType == AttackType.Melee)
-            {
-                playerHealth.TakeDamage(enemyData.enemyAttackDamage);
-                Debug.Log($"Melee attack on player for {enemyData.enemyAttackDamage} damage.");
-            }
-            else if (enemyData.attackType == AttackType.Ranged)
-            {
-                LaunchProjectile();
-                Debug.Log($"Ranged attack on player for {enemyData.enemyAttackDamage} damage.");
-            }
-            yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
+            playerHealth.TakeDamage(enemyData.enemyAttackDamage);
+            Debug.Log($"Melee attack on player for {enemyData.enemyAttackDamage} damage.");
         }
-
-        enemyAnimator.ResetTrigger("Attack");
+        else if (enemyData.attackType == AttackType.Ranged)
+        {
+            LaunchProjectile();
+            Debug.Log($"Ranged attack on player for {enemyData.enemyAttackDamage} damage.");
+        }
+        yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
         enemyController.ChangeState(EnemyState.Chase);
     }
     private void LaunchProjectile()
@@ -83,10 +79,14 @@ public class AttackState : IEnemyState
             GameObject projectileObject = GameObject.Instantiate(enemyData.enemyProjectilePrefab, enemyTransform.position, Quaternion.identity);
             EnemyProjectile projectile = projectileObject.GetComponent<EnemyProjectile>();
 
-            if (projectile != null) {
+            if (projectile != null)
+            {
                 projectile.enemyData = this.enemyData;
                 projectile.Initialize(playerTransform); 
             }
+
+            // Projeyi 3 saniye sonra yok et
+            GameObject.Destroy(projectileObject, 3.0f);
         }
     }
 

@@ -20,7 +20,7 @@ MonoBehaviour:
   enemyPatrolRange: 60
   enemyWalkSpeed: 5
   enemyRunSpeed: 12
-  enemyAttackRange: 1
+  enemyAttackRange: 4
   enemyAttackCooldown: 0.6
   enemyProjectilePrefab: {fileID: 0}
   enemyProjectileSpeed: 0
