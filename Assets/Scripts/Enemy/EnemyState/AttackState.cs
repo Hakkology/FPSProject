@@ -75,6 +75,12 @@ public class AttackState : IEnemyState
                 yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
                 enemyAnimator.ResetTrigger("Attack");
             }
+            else
+            {
+                enemyAnimator.ResetTrigger("Attack");
+                enemyController.ChangeState(EnemyState.Chase);
+                break;
+            }
         }
     }
     private void LaunchProjectile()

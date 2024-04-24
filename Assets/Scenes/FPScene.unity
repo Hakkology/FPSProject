@@ -5717,7 +5717,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 1.6666666
+  m_VoxelSize: 1.1666666
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 3fcc5eb736a70094fad79e3e047e7be7, type: 2}
   m_BuildHeightMesh: 0
@@ -6775,7 +6775,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   panel: {fileID: 10781004}
-  killText: {fileID: 0}
+  killText: {fileID: 664743310}
 --- !u!114 &1221795620
 MonoBehaviour:
   m_ObjectHideFlags: 0
