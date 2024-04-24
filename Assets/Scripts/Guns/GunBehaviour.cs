@@ -49,39 +49,34 @@ public class GunBehaviour : MonoBehaviour
 
     private void Fire()
     {
-        // Check for remaining ammo
-        if (CurrentAmmo <= 0) return; // Exit if no ammo left
-        CurrentAmmo--; // Decrement ammo count
-        lastFireTime = Time.time; // Update time of last shot
+        
+        if (CurrentAmmo <= 0) return; 
+        CurrentAmmo--; 
+        lastFireTime = Time.time; 
 
-        // Set up the raycast starting point and direction
-        Vector3 rayStart = transform.position + transform.forward * 0.1f; // Start point just in front of the player to avoid self-collision
-        Debug.DrawRay(rayStart, transform.forward * gunData.gunAttackDistance, Color.red, 2f); // Visualize the raycast for debugging
+        Vector3 rayStart = transform.position + transform.forward * 0.1f; 
+        Debug.DrawRay(rayStart, transform.forward * gunData.gunAttackDistance, Color.red, 2f); 
 
-        // Use a sphere cast for a more forgiving hit detection
-        int enemyLayerMask = LayerMask.GetMask("Enemy"); // Get the layer mask for enemies
+        int enemyLayerMask = LayerMask.GetMask("Enemy"); 
         RaycastHit[] hits = Physics.SphereCastAll(rayStart, 0.5f, transform.forward, gunData.gunAttackDistance, enemyLayerMask);
 
-        // Log the raycast call
         Debug.Log("Calling SphereCastAll with mask " + LayerMask.LayerToName(enemyLayerMask));
 
         foreach (var hit in hits)
         {
-            // Log each hit for debugging
             Debug.Log($"Raycast hit: {hit.collider.gameObject.name}, Layer: {LayerMask.LayerToName(hit.collider.gameObject.layer)}");
             Debug.Log("Raycast start: " + rayStart + ", Direction: " + transform.forward);
 
-            // Attempt to get the EnemyHealth component on the hit object
             EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
             if (enemyHealth != null)
             {
                 Debug.Log("EnemyHealth component found and not null");
-                enemyHealth.TakeDamage((int)currentWeaponDamage); // Apply damage
+                enemyHealth.TakeDamage((int)currentWeaponDamage); 
                 if (gunData.gunPierceShot.isUnlocked)
                 {
-                    HandlePiercingShot(hit); // Handle piercing shots if the feature is unlocked
+                    HandlePiercingShot(hit); 
                 }
-                break; // Stop at the first valid enemy hit if not piercing or continue based on your design
+                break; 
             }
             else
             {
@@ -93,7 +88,7 @@ public class GunBehaviour : MonoBehaviour
 
         if (!isReloading)
         {
-            ApplyRecoil(); // Apply recoil effects
+            ApplyRecoil(); 
         }
     }
 
