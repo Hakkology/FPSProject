@@ -9,7 +9,7 @@ public class ExperienceBarDisplay : MonoBehaviour
 
     void Start(){
         PlayerTalentController.OnExperienceChanged += UpdateExperienceDisplay;
-        PlayerTalentController.OnLevelUp += AdjustLevelThresholds;
+        PlayerTalentController.OnLevelUp += UpdateExperienceDisplay;
         Debug.Log("Subscribed to PlayerTalentController events.");
         InitializeSlider();
     }
@@ -17,7 +17,7 @@ public class ExperienceBarDisplay : MonoBehaviour
     void OnDisable()
     {
         PlayerTalentController.OnExperienceChanged -= UpdateExperienceDisplay;
-        PlayerTalentController.OnLevelUp -= AdjustLevelThresholds;
+        PlayerTalentController.OnLevelUp -= UpdateExperienceDisplay;
         Debug.Log("Unsubscribed from PlayerTalentController events.");
     }
 
@@ -27,7 +27,6 @@ public class ExperienceBarDisplay : MonoBehaviour
         {
             Debug.Log("Initializing slider with current XP and level thresholds.");
             UpdateExperienceDisplay();
-            AdjustLevelThresholds();
         }
         else
         {
@@ -38,32 +37,23 @@ public class ExperienceBarDisplay : MonoBehaviour
     private void UpdateExperienceDisplay()
     {
         int currentLevel = PlayerTalentController.Instance.currentLevel;
-        int experienceForCurrentLevel = (currentLevel > 1) ? PlayerTalentController.Instance.experienceLevels.GetExperienceForLevel(currentLevel-1) : 0;
+        int experienceForCurrentLevel = (currentLevel > 1) ? 
+            PlayerTalentController.Instance.experienceLevels.GetExperienceForLevel(currentLevel - 1) : 0;
         int experienceForNextLevel = PlayerTalentController.Instance.experienceLevels.GetExperienceForLevel(currentLevel);
         
-        xpSlider.minValue = 0;
-        xpSlider.maxValue = experienceForNextLevel - experienceForCurrentLevel;
-        xpSlider.value = PlayerTalentController.Instance.CurrentExperience - experienceForCurrentLevel;
+        xpSlider.minValue = experienceForCurrentLevel;
+        xpSlider.maxValue = experienceForNextLevel;
+        int sliderValue = PlayerTalentController.Instance.CurrentExperience;
+        xpSlider.value = Mathf.Max(0, sliderValue);
 
-        levelText.text = "Level:" + currentLevel.ToString();
-
-        Debug.Log($"Slider updated: Min={xpSlider.minValue}, Max={xpSlider.maxValue}, Current XP={PlayerTalentController.Instance.CurrentExperience}, Value={xpSlider.value}");
-    }
-
-
-    private void AdjustLevelThresholds()
-    {
-        if (xpSlider != null && PlayerTalentController.Instance != null)
-        {
-            UpdateExperienceDisplay();
-            Debug.Log("Adjusted slider thresholds based on new level.");
-        }
+        Debug.Log($"Level: {currentLevel}, Current XP: {PlayerTalentController.Instance.CurrentExperience}, Min XP: {experienceForCurrentLevel}, Max XP: {experienceForNextLevel}, Slider Value: {xpSlider.value}");
+        levelText.text = "Level:" + $"{currentLevel}";    
     }
 
     // Ensure this method is triggered properly
     public void OnLevelUp()
     {
-        AdjustLevelThresholds();  
+        UpdateExperienceDisplay();
         Debug.Log("Level up detected, adjusting slider.");
     }
 }

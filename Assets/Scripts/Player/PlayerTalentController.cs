@@ -90,7 +90,10 @@ public class PlayerTalentController : MonoBehaviour
     }
 
     void Update(){
-
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            GainExperience(100);
+        }
     }
 
     public void GainExperience(int xp)
@@ -110,17 +113,16 @@ public class PlayerTalentController : MonoBehaviour
     private void CheckLevelUp()
     {
         while (currentLevel < experienceLevels.experienceThresholds.Count &&
-            currentExperience >= experienceLevels.GetExperienceForLevel(currentLevel + 1))
+            currentExperience >= experienceLevels.GetExperienceForLevel(currentLevel))
         {
-            int nextLevelXP = experienceLevels.GetExperienceForLevel(currentLevel);
-            currentExperience -= nextLevelXP;  
             currentLevel++;
-            TalentPoints++;  
+            TalentPoints++;
             Debug.Log($"You are now Level {currentLevel}");
-            Debug.Log($"You have {talentPoints} amount of talent points.");
-            OnLevelUp?.Invoke(); 
+            OnLevelUp?.Invoke();
         }
     }
+
+
 
     public bool TrySpendTalentPoints(int pointsNeeded)
     {
@@ -134,7 +136,6 @@ public class PlayerTalentController : MonoBehaviour
         return false;
         
     }
-
     public void RefundTalentPoints(int pointsRefunded)
     {
         TalentPoints += pointsRefunded;

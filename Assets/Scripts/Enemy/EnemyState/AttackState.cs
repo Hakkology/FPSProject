@@ -57,31 +57,24 @@ public class AttackState : IEnemyState
 
     private IEnumerator HandleAttack()
     {
-        while (true)
+        while (Vector3.Distance(enemyTransform.position, playerTransform.position) <= enemyData.enemyAttackRange)
         {
-            if (Vector3.Distance(enemyTransform.position, playerTransform.position) <= enemyData.enemyAttackRange)
+            enemyAnimator.SetTrigger("Attack");
+            if (enemyData.attackType == AttackType.Melee)
             {
-                enemyAnimator.SetTrigger("Attack"); // Consider using a trigger instead of a boolean
-                if (enemyData.attackType == AttackType.Melee)
-                {
-                    playerHealth.TakeDamage(enemyData.enemyAttackDamage);
-                    Debug.Log($"Melee attack on player for {enemyData.enemyAttackDamage} damage.");
-                }
-                else if (enemyData.attackType == AttackType.Ranged)
-                {
-                    LaunchProjectile();
-                    Debug.Log($"Ranged attack on player for {enemyData.enemyAttackDamage} damage.");
-                }
-                yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
-                enemyAnimator.ResetTrigger("Attack");
+                playerHealth.TakeDamage(enemyData.enemyAttackDamage);
+                Debug.Log($"Melee attack on player for {enemyData.enemyAttackDamage} damage.");
             }
-            else
+            else if (enemyData.attackType == AttackType.Ranged)
             {
-                enemyAnimator.ResetTrigger("Attack");
-                enemyController.ChangeState(EnemyState.Chase);
-                break;
+                LaunchProjectile();
+                Debug.Log($"Ranged attack on player for {enemyData.enemyAttackDamage} damage.");
             }
+            yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
         }
+
+        enemyAnimator.ResetTrigger("Attack");
+        enemyController.ChangeState(EnemyState.Chase);
     }
     private void LaunchProjectile()
     {
