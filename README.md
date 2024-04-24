@@ -14,6 +14,7 @@ This repository tracks the development progress of a game project. Below is an o
 | Collecting Health and Ammo from the Environment    | +         | Done, with multiple guns.                             |
 | UI Elements                                         | +         | Done.                                                 |
 | **Optional Mechanics**                              | +         | Partially done.                                       |
+| |         |                                             |
 | **Character**                                       |           |                                                       |
 | Must have a gun.                                    | +         | Two guns, press Q for change.                         |
 | Must have a certain amount of current health        | +         | Done.                                                 |
@@ -22,6 +23,7 @@ This repository tracks the development progress of a game project. Below is an o
 | Must have a leveling system                         | +         | Done.                                                 |
 | The character gains experience by killing enemies   | +         | Done.                                                 |
 | The character gains 1 talent point for each level up| +         | Done.                                                 |
+| |         |                                             |
 | **Gun**                                             |           |                                                       |
 | Must shoot bullets with raycast (line tracing)      | +         | Done.                                                 |
 | Must have maximum amount of bullet                  | +         | Done.                                                 |
@@ -32,22 +34,27 @@ This repository tracks the development progress of a game project. Below is an o
 | The Amount of bullets must be shown on top of the ammo item | + | Done.                                                 |
 | If you collect an ammo item and the amount of collectible bullets exceeds the current maximum amount of ammo, the character must collect needed amount of bullets from the ground. The remaining amount of bullets will stay on the ground. If the all amount of collectible ammo is equal to 3, then no spawning ammo | + | Done, for each weapon and ammo type. |
 | Once collected, the Bullet collectible will spawn at random location and avoid two or more collectibles being spawned at same location | + | Done.                                     |
+| |         |                                             |
 | **Collecting Health from Environment**              |           |                                                       |
 | In level, there can be at most of 1 (one) Collectible health | + | Done.                                             |
 | Once you collect a health item, there must be a certain time interval before the next health item spawns | + | Done.                                          |
 | The Amount of collectible health must be shown on top of the health item | + | Done.                                          |
 | If you collect an health item and if it exceed the current amount of health. The character will heal needed amount of health. Then the collectible health will be destroyed, Contrary to the ammo | + | Done. |
 | Once collected, the Health collectible will spawn at random location and avoid two or more collectibles being spawned at same location | + | Done. |
+| |         |                                             |
 | **Talent System**                                   |           |                                                       |
 | The character has 2 categories of upgradable talents. One for the Character itself, the other one for the gun that the character uses. | + | Done, 3 categories, a category was added for 2nd gun type. |
+| |         |                                             |
 | **Character Talents**                              |           |                                                       |
 | Maximum walk and sprint speed (5 level, 1 talent point for each level) | + | Done.                                                 |
 | Maximum jump height (5 level, 1 talent point for each level) | + | Done.                                                 |
 | Maximum amount of health (5 level, 1 talent point for each level) | + | Done.                                                 |
+| |         |                                             |
 | **Gun Talents**                                     |           |                                                       |
 | Damage amount (5 level, 1 talent point for each level) | + | Done.                                                 |
 | Ammo capacity (5 level, 1 talent point for each level) | + | Done.                                                 |
 | The pierce shot (1 level, 3 talent point) - The gun shots should pass through enemies instead of stopping at the first target. At the beginning of the game, shots cannot pierce the enemies until this talent is opened. | + | Done, not tested.                                    |
+| |         |                                             |
 | **Enemy**                                           |           |                                                       |
 | The maximum number of enemies in the level/scene is 5. There can be at most 5 enemies at the same time in the scene. | + | Done, 3 melee, 2 ranged enemies.                    |
 | Enemies must patrol at certain patrol points.       | +         | Enemies randomly find patrol points and move.         |
@@ -59,12 +66,14 @@ This repository tracks the development progress of a game project. Below is an o
 | Idle, walk, run, attack animations must be added to the enemies. | + | Done.                                               |
 | The enemies are killed when they ran out of health. | + | Done.                                                 |
 | Once the enemy is killed, there must be certain time interval before the next enemy spawns. | + | Done.                                            |
-| Create at least two different enemies with different attributes(e.g health, damage) and color. | + | Done.                                                |
+| Create at least two different enemies with different attributes(e.g health, damage) and color. | + | Done.  
+| |         |                                             ||
 | **Leveling Up**                                    |           |                                                       |
 | When the enemy is killed by the character(us), the character gains experience point. | + | Done.                                            |
 | The character needs experience points to level up. | +       | Done.                                                 |
 | Every Character level has its own experience point amount. (From Character Level 1 to Level 2 needs 100 EXP) | + | Done. |
 | As the character level increases, leveling up requires more experience points. (For example: Level 1 to Level 2 needs 100 EXP, Level 2 to level 3 needs 300 EXP). The needed experience points amount is all up to you. | + | Done. |
+| |         |                                             |
 | **UI**                                             |           |                                                       |
 | When the player dies, there must be a simple UI page/indicator to restart the game. | + | Done.                                              |
 | When in game, there must be an indicator that shows number of enemies that the character killed. | + | Done.         |
@@ -74,6 +83,7 @@ This repository tracks the development progress of a game project. Below is an o
 | When in a game, there must be health bar above the enemies that shows the enemy’s health amount. | + | Done.           |
 | When in a game, the player can access talent system UI by pressing TAB. | + | Done.                                              |
 | From talent system UI, the player the player can increase talent by spending talent point. Here is some tips that you can benefit from. | + | Done. |
+| |         |                                             |
 | **Optional**                                       |           |                                                       |
 | Highest Score In the UI                            | +         | Not Done.                                             |
 | The hit by the character and die animations of enemies. | +   | Done.                                                 |
@@ -81,6 +91,7 @@ This repository tracks the development progress of a game project. Below is an o
 | When shooting, bullets can leave trails behind them. | +     | Not Done.                                             |
 | Enemies can patrol random patrol points. Every time it reaches the current patrol point, generate a random new patrol point. | + | Done. |
 | Don’t exit the atmosphere :)                       | +         | Hopefully done.                                       |
+| |         |                                             |
 | **Additional**                                     |           |                                                       |
 | Second gun is added with its own talent system and its own ammo pickup. | + | Done.                                             |
 | Recoil and zoom system for the gun, right click for zoom. | + | Done.                                                |
