@@ -22,7 +22,6 @@ public class EnemyHealth : MonoBehaviour, IDamageable, IExperience
         if (currentHealth <= 0)
         {
             currentHealth = 0;
-            GiveExperience(enemyData.enemyExperiencePoints);
         }
     }
 

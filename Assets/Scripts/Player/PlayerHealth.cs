@@ -49,7 +49,7 @@ public class PlayerHealth : MonoBehaviour, IDamageable
     {
         Debug.Log("Player has died.");
         UpdatePlayerState();
-        gameObject.SetActive(false);  
+        //gameObject.SetActive(false);  
     }
 
     public void Heal(int amount)

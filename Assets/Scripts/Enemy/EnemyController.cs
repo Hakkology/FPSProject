@@ -33,7 +33,7 @@ public class EnemyController
         patrolState = new PatrolState(this, data, agent, animator, transform, playerTransform);
         chaseState = new ChaseState(this, data, agent, animator, transform, playerTransform, health);
         attackState = new AttackState(this, coroutineController, data, agent, animator, projectile, transform, playerTransform, health, playerHealth);
-        dieState = new DieState(this, data, animator, agent, coroutineController, pool);
+        dieState = new DieState(this, data, animator, agent, health, coroutineController, pool);
         fleeState = new FleeState(this, data, agent, animator, transform, playerTransform, health, coroutineController);
         poolState = new PoolState(this, data, animator, agent, health, pool);
 

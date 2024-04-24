@@ -58,13 +58,6 @@ public class EnemyPooler : MonoBehaviour
         GameObject enemy = enemyPool.Dequeue();
         int spawnIndex = Random.Range(0, spawnLocations.Length);
         enemy.transform.position = spawnLocations[spawnIndex].position;
-        
-        var enemyAgent = enemy.GetComponent<NavMeshAgent>();
-        if (enemyAgent != null)
-        {
-            enemyAgent.enabled = true;
-            enemyAgent.ResetPath();
-        }
 
         enemy.SetActive(true);
         activeEnemies.Add(enemy);

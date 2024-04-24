@@ -7,6 +7,9 @@ public class PlayerTalentController : MonoBehaviour
     public List<ScalableTalent> TalentReset = new List<ScalableTalent>();
     public static event Action OnTalentPointsChanged;
     public static event Action OnTalentLevelChanged;
+    public static event Action OnKillCountChanged;
+    public static event Action OnExperienceChanged;
+    public static event Action OnLevelUp;
     
     private static PlayerTalentController _instance;
     public static PlayerTalentController Instance
@@ -27,10 +30,36 @@ public class PlayerTalentController : MonoBehaviour
         }
     }
 
-    [SerializeField] private ExperienceLevels experienceLevels;
+    public ExperienceLevels experienceLevels;
     public int currentLevel = 1;
     private int currentExperience = 0;
+    public int CurrentExperience
+    {
+        get => currentExperience;
+        private set
+        {
+            if (currentExperience != value)
+            {
+                currentExperience = value;
+                Debug.Log($"CurrentExperience updated to: {currentExperience}");
+                OnExperienceChanged?.Invoke();
+            }
+        }
+    }
     private int talentPoints = 0;
+    private int killScore;
+    public int KillScore{
+        get => killScore;
+        private set
+        {
+            if (killScore != value)
+            {
+                killScore = value;
+                OnKillCountChanged?.Invoke();
+            }
+        }
+    }
+
     public int TalentPoints
     {
         get => talentPoints;
@@ -61,35 +90,36 @@ public class PlayerTalentController : MonoBehaviour
     }
 
     void Update(){
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            GainExperience(200);
-        }
+
     }
 
     public void GainExperience(int xp)
     {
         currentExperience += xp;
+        Debug.Log($"Player has earned {xp} amount of xp.");
+        OnExperienceChanged?.Invoke();
+        RegisterKill();
         CheckLevelUp();
+    }
+    public void RegisterKill()
+    {
+        KillScore++;
+        Debug.Log($"New kill registered. Total kills: {KillScore}");
     }
 
     private void CheckLevelUp()
     {
         while (currentLevel < experienceLevels.experienceThresholds.Count &&
-               currentExperience >= experienceLevels.GetExperienceForLevel(currentLevel + 1))
+            currentExperience >= experienceLevels.GetExperienceForLevel(currentLevel + 1))
         {
-            currentExperience -= experienceLevels.GetExperienceForLevel(currentLevel + 1);
+            int nextLevelXP = experienceLevels.GetExperienceForLevel(currentLevel);
+            currentExperience -= nextLevelXP;  
             currentLevel++;
             TalentPoints++;  
             Debug.Log($"You are now Level {currentLevel}");
             Debug.Log($"You have {talentPoints} amount of talent points.");
-            OnLevelUp();
+            OnLevelUp?.Invoke(); 
         }
-    }
-
-    private void OnLevelUp()
-    {
-        
     }
 
     public bool TrySpendTalentPoints(int pointsNeeded)

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RangedEnemy
   m_EditorClassIdentifier: 
   enemyName: Cultist
-  enemyHealth: 180
+  enemyHealth: 240
   enemyAttackDamage: 30
   enemyExperiencePoints: 120
   enemySightRange: 150
@@ -24,8 +24,9 @@ MonoBehaviour:
   enemyAttackCooldown: 2
   enemyProjectilePrefab: {fileID: 947250871755532473, guid: 6f55fda69c93b4f48bea8baae7d55cb4, type: 3}
   enemyProjectileSpeed: 150
-  enemyFleeThreshold: 120
+  enemyFleeThreshold: 150
   enemyFleeDistance: 120
   attackType: 1
+  enemyPool: {fileID: 0}
   enemyPoolSize: 5
   enemySpawnCooldown: 20

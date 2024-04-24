@@ -7,18 +7,20 @@ public class DieState : IEnemyState
     private EnemyData enemyData;
     private EnemyController enemyController;
     private Animator enemyAnimator;
+    private EnemyHealth enemyHealth;
     private NavMeshAgent enemyAgent;
     private EnemyCoroutineController enemyCoroutineController;
     private EnemyPooler enemyPooler;  
 
     private float destructionTimer = 4.5f;
 
-    public DieState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, EnemyCoroutineController coroutineController, EnemyPooler pooler)
+    public DieState(EnemyController controller, EnemyData data, Animator animator, NavMeshAgent agent, EnemyHealth health, EnemyCoroutineController coroutineController, EnemyPooler pooler)
     {
         enemyController = controller;
         enemyData = data;
         enemyAnimator = animator;
         enemyAgent = agent;
+        enemyHealth = health;
         enemyCoroutineController = coroutineController;
         enemyPooler = pooler;  
     }
@@ -26,6 +28,7 @@ public class DieState : IEnemyState
     public void Init()
     {
         Debug.Log($"{enemyData.enemyName} enemy is entering Death state.");
+        enemyHealth.GiveExperience(enemyData.enemyExperiencePoints);
         enemyAgent.isStopped = true;
         enemyAgent.velocity = Vector3.zero;
         enemyAnimator.SetBool("Die", true);

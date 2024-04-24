@@ -44,7 +44,6 @@ public class AttackState : IEnemyState
     {
         enemyAnimator.SetFloat("Speed", 0, .1f, Time.deltaTime);
         HandleHealthTransition();
-        HandleChaseTransition();
     }
     public void Cancel()
     {
@@ -62,7 +61,7 @@ public class AttackState : IEnemyState
         {
             if (Vector3.Distance(enemyTransform.position, playerTransform.position) <= enemyData.enemyAttackRange)
             {
-                enemyAnimator.SetBool("Attack", true);
+                enemyAnimator.SetTrigger("Attack"); // Consider using a trigger instead of a boolean
                 if (enemyData.attackType == AttackType.Melee)
                 {
                     playerHealth.TakeDamage(enemyData.enemyAttackDamage);
@@ -73,9 +72,9 @@ public class AttackState : IEnemyState
                     LaunchProjectile();
                     Debug.Log($"Ranged attack on player for {enemyData.enemyAttackDamage} damage.");
                 }
+                yield return new WaitForSeconds(enemyData.enemyAttackCooldown);
+                enemyAnimator.ResetTrigger("Attack");
             }
-            yield return new WaitForSeconds(enemyData.enemyAttackCooldown); 
-            enemyAnimator.SetBool("Attack", false);
         }
     }
     private void LaunchProjectile()
@@ -106,20 +105,4 @@ public class AttackState : IEnemyState
         }
     }
 
-    void HandleChaseTransition(){
-        if (checkTimer > 0)
-        {
-            checkTimer -= Time.deltaTime;
-        }
-        else
-        {
-            float distanceToPlayer = Vector3.Distance(enemyTransform.position, playerTransform.position);
-            if (distanceToPlayer > enemyData.enemyAttackRange)
-            {
-                enemyController.ChangeState(EnemyState.Chase);
-                return;
-            }
-            checkTimer = enemyData.enemyAttackCooldown; 
-        }
-    }
 }

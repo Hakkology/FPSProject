@@ -26,6 +26,7 @@ public class IdleState : IEnemyState
     public void Init()
     {
         enemyAgent.enabled = true;
+        enemyAgent.ResetPath();
         transitionTimer = Random.Range(3f, 5f);
         Debug.Log($"{enemyData.enemyName} is entering idle state.");
     }

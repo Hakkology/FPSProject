@@ -17,7 +17,6 @@ public class EnemyBehaviour : MonoBehaviour
     private Animator enemyAnimator;
     private EnemyHealth enemyHealth;
 
-
     void Awake()
     {
         enemyAgent = GetComponent<NavMeshAgent>();
@@ -33,13 +32,16 @@ public class EnemyBehaviour : MonoBehaviour
             playerHealth = player.GetComponent<PlayerHealth>();
         }
         enemyPool = GameObject.FindGameObjectWithTag($"{enemyStats.enemyName}").GetComponent<EnemyPooler>();
-
         enemyController = new EnemyController(enemyStats, enemyAnimator, enemyAgent, enemyProjectile, playerTransform, transform, playerHealth, enemyHealth, enemyCoroutineController, enemyPool);
     }
 
     void Update()
     {
         enemyController.Update();
+    }
+
+    void OnEnable(){
+        enemyController.ChangeState(EnemyState.Idle);
     }
 
 }
